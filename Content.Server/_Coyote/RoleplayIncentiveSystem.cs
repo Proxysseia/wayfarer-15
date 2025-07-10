@@ -204,6 +204,7 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
         var bestSubtle     = 0f;
         var bestRadio      = 0f;
         // go through all the actions taken, sort and judge them
+        var actionsToRemove = new List<RoleplayAction>();
         foreach (var action in incentive.ActionsTaken.Where(action => !(action.Judgement > 0)))
         {
             JudgeAction(action, out var judgement);
