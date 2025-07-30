@@ -24,3 +24,11 @@ gas-tank-window-internal-disconnected = [color=red]Disconnected[/color]
 ## Valve
 comp-gas-tank-open-valve = Open Valve
 comp-gas-tank-close-valve = Close Valve
+
+## Verp
+gas-tank-toggle-alerts-off = Pressure Alerts: [color=red]off[/color]
+gas-tank-toggle-alerts-on = Pressure Alerts: [color=green]on[/color]
+gas-tank-toggle-alerts-message-on = This tank [color=green]will[/color] alert you when the pressure gets low.
+gas-tank-toggle-alerts-message-off = This tank [color=red]will not[/color] alert you when the pressure gets low.
+gas-tank-toggle-alerts-popup-off = Pressure Alerts: [color=red]off[/color]
+gas-tank-toggle-alerts-popup-on = Pressure Alerts: [color=green]on[/color]
