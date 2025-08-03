@@ -1,6 +1,7 @@
+using Content.Shared._Coyote.BlipCartridge;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._Coyote.BlipCartridge;
+namespace Content.Shared._Coyote.BlipCartridge;
 
 /// <summary>
 /// This component is used to add a radar blip for your PDA when the Blip Cartridge is equipped!
@@ -13,32 +14,38 @@ public sealed partial class BlipCartridgeComponent : Component
     /// Default preset for the blip cartridge.
     /// </summary>
     [DataField]
-    public EntProtoId DefaultPreset { get; set; } = "BlipPresetCivilian";
+    public ProtoId<RadarBlipPresetPrototype> DefaultPreset { get; set; } = "BlipPresetCivilian";
 
     /// <summary>
     /// Current preset for the blip cartridge.
     /// </summary>
     [DataField]
-    public EntProtoId CurrentPreset { get; set; } = "BlipPresetCivilian";
+    public ProtoId<RadarBlipPresetPrototype> CurrentPreset { get; set; } = "BlipPresetCivilian";
 
     // stored blip data for like when the cartridge is removed and for to be re-added later
     /// <summary>
     /// Color Table Set for the blip.
     /// </summary>
     [DataField]
-    public EntProtoId BlipColor { get; set; } = "BlipColorRed";
+    public ProtoId<BlipColorSetPrototype> BlipColor { get; set; } = "BlipColorRed";
+
+    /// <summary>
+    /// The Highlighted Color Table Set for the blip.
+    /// </summary>
+    [DataField]
+    public ProtoId<BlipColorSetPrototype> BlipHighlightedColor { get; set; } = "BlipColorRed";
 
     /// <summary>
     /// Shape Table Set for the blip.
     /// </summary>
     [DataField]
-    public EntProtoId BlipShape { get; set; } = "BlipShapeCircle";
+    public ProtoId<BlipShapeSetPrototype> BlipShape { get; set; } = "BlipShapeCircle";
 
     /// <summary>
     /// Scale of the blip.
     /// </summary>
     [DataField]
-    public float Scale { get; set; } = 1f;
+    public float Scale { get; set; } = 3f;
 
     /// <summary>
     /// Whether this blip is enabled and should be shown on radar.
@@ -51,23 +58,23 @@ public sealed partial class BlipCartridgeComponent : Component
     /// A list that maps color names to their corresponding color values.
     /// prototypes
     /// </summary>
-    public List<EntProtoId> ColorTable = new()
+    public List<ProtoId<BlipColorSetPrototype>> ColorTable = new()
     {
         "BlipColorRed",
+        "BlipColorOrange",
+        "BlipColorGold",
+        "BlipColorYellow",
         "BlipColorGreen",
         "BlipColorBlue",
-        "BlipColorYellow",
-        "BlipColorPurple",
-        "BlipColorGold",
-        "BlipColorWhite",
         "BlipColorCyan",
+        "BlipColorTeal",
     };
 
     /// <summary>
     /// A list that maps shape names to their corresponding shape values.
     /// proots
     /// </summary>
-    public List<EntProtoId> ShapeTable = new()
+    public List<ProtoId<BlipShapeSetPrototype>> ShapeTable = new()
     {
         "BlipShapeCircle",
         "BlipShapeSquare",
@@ -76,12 +83,14 @@ public sealed partial class BlipCartridgeComponent : Component
         "BlipShapeHexagon",
         "BlipShapeStar",
         "BlipShapeArrow",
+        // "BlipShapeHeart", // doesnt work
+        "BlipShapeX",
     };
 
     /// <summary>
     /// Available blip presets for the cartridge.
     /// </summary>
-    public List<EntProtoId> Presets = new()
+    public List<ProtoId<RadarBlipPresetPrototype>> Presets = new()
     {
         "BlipPresetCivilian",
         "BlipPresetMercenary",
@@ -92,7 +101,12 @@ public sealed partial class BlipCartridgeComponent : Component
         "BlipPresetSecurity",
         "BlipPresetScience",
         "BlipPresetSupply",
+        "BlipPresetHorny",
+        "BlipPresetBooty",
+        "BlipPresetMailCourier",
     };
+
+    public bool IsFlashed { get; set; } = false;
 }
 
 /// <summary>

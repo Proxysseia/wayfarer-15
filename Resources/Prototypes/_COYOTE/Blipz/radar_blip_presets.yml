@@ -1,69 +1,91 @@
-- type: RadarBlipPreset
+- type: radarBlipPreset
   id: BlipPresetCivilian
   name: Harmless Civilian
-  colorSet: "BlipColorGreen"
-  shapeSet: "BlipShapeCircle"
-  scale: 1.0
+  colorSet: BlipColorGreen
+  shapeSet: BlipShapeCircle
+  scale: 2.0
 
-- type: RadarBlipPreset
+- type: radarBlipPreset
   id: BlipPresetMercenary
   name: Rough Mercenary
-  colorSet: "BlipColorGreen"
-  shapeSet: "BlipShapeSquare"
+  colorSet: BlipColorGreen
+  shapeSet: BlipShapeSquare
   scale: 2.0
 
-- type: RadarBlipPreset
+- type: radarBlipPreset
   id: BlipPresetCommand
   name: Important VIP
-  colorSet: "BlipColorGold"
-  shapeSet: "BlipShapeStar"
-  scale: 3.0
+  colorSet: BlipColorGold
+  shapeSet: BlipShapeStar
+  scale: 4.0
 
-- type: RadarBlipPreset
+- type: radarBlipPreset
   id: BlipPresetPirate
   name: Dangerous Baddie
-  colorSet: "BlipColorRed"
-  shapeSet: "BlipShapeTriangle"
-  scale: 1.0
-
-- type: RadarBlipPreset
-  id: BlipPresetMedical
-  name: Medical Assistance
-  colorSet: "BlipColorCyan"
-  shapeSet: "BlipShapeDiamond"
-  scale: 1.5
-
-- type: RadarBlipPreset
-  id: BlipPresetEngineering
-  name: Engineering Support
-  colorSet: "BlipColorOrange"
-  shapeSet: "BlipShapeHexagon"
-  scale: 1.5
-
-- type: RadarBlipPreset
-  id: BlipPresetSecurity
-  name: Frontier Sheriff
-  colorSet: "BlipColorBlue"
-  shapeSet: "BlipShapeArrow"
+  colorSet: BlipColorRed
+  shapeSet: BlipShapeTriangle
   scale: 2.0
 
-- type: RadarBlipPreset
+- type: radarBlipPreset
+  id: BlipPresetMedical
+  name: Medical Assistance
+  colorSet: BlipColorCyan
+  shapeSet: BlipShapeDiamond
+  scale: 2.5
+
+- type: radarBlipPreset
+  id: BlipPresetEngineering
+  name: Engineering Support
+  colorSet: BlipColorOrange
+  shapeSet: BlipShapeHexagon
+  scale: 2.0
+
+- type: radarBlipPreset
+  id: BlipPresetSecurity
+  name: Frontier Sheriff
+  colorSet: BlipColorBlue
+  shapeSet: BlipShapeArrow
+  scale: 2.5
+
+- type: radarBlipPreset
   id: BlipPresetScience
   name: Scientific Research
-  colorSet: "BlipColorPurple"
-  shapeSet: "BlipShapeHexagon"
-  scale: 1.5
+  colorSet: BlipColorMagenta
+  shapeSet: BlipShapeHexagon
+  scale: 2.0
 
-- type: RadarBlipPreset
+- type: radarBlipPreset
   id: BlipPresetSupply
   name: Salvage Supply
-  colorSet: "BlipColorYellow"
-  shapeSet: "BlipShapeSquare"
-  scale: 1.0
+  colorSet: BlipColorYellow
+  shapeSet: BlipShapeSquare
+  scale: 2.0
 
-- type: RadarBlipPreset
+- type: radarBlipPreset
   id: BlipPresetPilot
   name: Space Pilot
-  colorSet: "BlipColorBlue"
-  shapeSet: "BlipShapeCircle"
-  scale: 1.0
+  colorSet: BlipColorBlue
+  shapeSet: BlipShapeCircle
+  scale: 2.0
+
+- type: radarBlipPreset
+  id: BlipPresetHorny
+  name: Horny DTF Heatwalker
+  colorSet: BlipColorMagenta
+  shapeSet: BlipShapeStar
+  scale: 4.0
+
+- type: radarBlipPreset
+  id: BlipPresetBooty
+  name: Perfect Booty
+  colorSet: BlipColorRed
+  shapeSet: BlipShapeX
+  scale: 4.0
+
+- type: radarBlipPreset
+  id: BlipPresetMailCourier
+  name: Mail Courier
+  colorSet: BlipColorCyan
+  shapeSet: BlipShapeSquare
+  scale: 4.0
+

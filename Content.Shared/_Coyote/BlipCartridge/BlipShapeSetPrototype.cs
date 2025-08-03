@@ -1,11 +1,12 @@
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 
-namespace Content.Server._Coyote.BlipCartridge;
+namespace Content.Shared._Coyote.BlipCartridge;
 
 /// <summary>
 /// This is a prototype for...
 /// </summary>
-[Prototype]
+[Prototype, Serializable]
 public sealed partial class BlipShapeSetPrototype : IPrototype
 {
     /// <inheritdoc/>
@@ -24,5 +25,5 @@ public sealed partial class BlipShapeSetPrototype : IPrototype
     /// enum.RadarBlipShape.Circle
     /// </summary>
     [DataField]
-    public string Shape { get; set; } = "enum.RadarBlipShape.Circle";
+    public string Shape { get; set; } = "Circle";
 }

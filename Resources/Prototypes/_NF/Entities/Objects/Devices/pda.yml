@@ -27,6 +27,8 @@
       - MailMetricsCartridge
       - AppraisalCartridge
       - NetProbeCartridge
+  - type: BlipCartridge
+    enabled: false
 
 - type: entity
   parent: BasePDA
@@ -46,6 +48,8 @@
     accentVColor: "#A32D26"
   - type: Icon
     state: pda-mercenary
+  - type: BlipCartridge
+    defaultPreset: BlipPresetMercenary
 
 - type: entity
   parent: BasePDA
@@ -65,6 +69,8 @@
     accentVColor: "#A32D26"
   - type: Icon
     state: pda-pilot
+  - type: BlipCartridge
+    defaultPreset: BlipPresetPilot
 
 - type: entity
   parent: BaseSecurityPDA
@@ -380,6 +386,8 @@
     - AstroNavCartridge
     - LedgerCartridge
     - MailMetricsCartridge
+  - type: BlipCartridge
+    defaultPreset: BlipPresetCommand
 
 - type: entity
   parent: PiratePDA
@@ -394,6 +402,8 @@
       enum.PdaVisuals.PdaType:
         !type:String
         pda-pirate
+  - type: BlipCartridge
+    defaultPreset: BlipPresetPirate
 
 - type: entity
   parent: PiratePDA
@@ -582,3 +592,5 @@
     - BountyContractsCartridge
     - AstroNavCartridge
     - LedgerCartridge
+  - type: BlipCartridge
+    defaultPreset: BlipPresetCommand

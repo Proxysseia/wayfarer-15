@@ -13,7 +13,8 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Content.Client.Station; // Frontier
-using Content.Client._NF.Radar; // Frontier
+using Content.Client._NF.Radar;
+using Robust.Client.ResourceManagement; // Frontier
 
 namespace Content.Client.Shuttles.UI;
 
@@ -61,6 +62,7 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
         RobustXamlLoader.Load(this);
         _shuttles = EntManager.System<SharedShuttleSystem>();
         _transform = EntManager.System<SharedTransformSystem>();
+        FontHeart = new VectorFont(IoCManager.Resolve<IResourceCache>().GetResource<FontResource>("/Fonts/NotoSans/NotoSans-Regular.ttf"), 12);
 
         // Frontier
         _station = EntManager.System<StationSystem>();

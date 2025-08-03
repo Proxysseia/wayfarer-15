@@ -11,6 +11,7 @@ using Robust.Shared.Timing;
 using Content.Shared._NF.Radar;
 using Content.Client._NF.Radar;
 using Content.Client.Station;
+using Robust.Client.ResourceManagement;
 
 // Purposefully colliding with base namespace.
 namespace Content.Client.Shuttles.UI;
@@ -43,6 +44,8 @@ public sealed partial class ShuttleNavControl
 
     public InertiaDampeningMode DampeningMode { get; set; }
     public ServiceFlags ServiceFlags { get; set; } = ServiceFlags.None;
+
+    public Font FontHeart;
 
     /// <summary>
     /// Updates the radar UI with the latest navigation state and sets additional NF-specific state.
@@ -280,6 +283,24 @@ public sealed partial class ShuttleNavControl
                 break;
             case RadarBlipShape.Arrow:
                 DrawArrow(handle, position, size, color);
+                break;
+            case RadarBlipShape.Heart:
+                handle.DrawString(
+                    FontHeart,
+                    position,
+                    "♥",
+                    size * 0.5f,
+                    color);
+                break;
+            case RadarBlipShape.X:
+                var xPoints = new Vector2[]
+                {
+                    position + new Vector2(-size, -size),
+                    position + new Vector2(size, size),
+                    position + new Vector2(size, -size),
+                    position + new Vector2(-size, size)
+                };
+                handle.DrawPrimitives(DrawPrimitiveTopology.LineList, xPoints, color);
                 break;
         }
     }

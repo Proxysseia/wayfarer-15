@@ -1,6 +1,8 @@
 using Content.Server._NF.Radar;
+using Content.Shared._Coyote.BlipCartridge;
 using Content.Shared._NF.Radar;
 using Content.Shared.CartridgeLoader;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.Verbs;
 using Robust.Shared.Prototypes;
 
@@ -13,22 +15,39 @@ namespace Content.Server._Coyote.BlipCartridge;
 public sealed class BlipCartridgeSystem : EntitySystem
 {
     [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly MobStateSystem _mobState = default!;
+
     public static readonly VerbCategory BlipPresetCat =
         new("verb-categories-blip-preset", null);
+
     public static readonly VerbCategory BlipColorCat =
         new("verb-categories-blip-color", null);
+
     public static readonly VerbCategory BlipShapeCat =
         new("verb-categories-blip-shape", null);
+
     public static readonly VerbCategory BlipSizeCat =
         new("verb-categories-blip-size", null);
+
+    public static readonly VerbCategory BlipToggleCat =
+        new("verb-categories-blip-toggle", null);
 
     /// <inheritdoc/>
     public override void Initialize()
     {
         base.Initialize();
+        SubscribeLocalEvent<BlipCartridgeComponent, ComponentInit>(OnComponentInit);
         SubscribeLocalEvent<BlipCartridgeComponent, CartridgeAddedEvent>(OnCartridgeAdded);
         SubscribeLocalEvent<BlipCartridgeComponent, CartridgeRemovedEvent>(OnCartridgeRemoved);
         SubscribeLocalEvent<BlipCartridgeComponent, GetVerbsEvent<Verb>>(GetVerbs);
+        // SubscribeLocalEvent<BlipCartridgeComponent, RadarBlipEvent>(UpdateBlipData); // todo, make it flash in crit
+    }
+
+    private void OnComponentInit(Entity<BlipCartridgeComponent> ent, ref ComponentInit args)
+    {
+        // Load the initial data from the cartridge component to the blip component
+        EnsureComp<RadarBlipComponent>(ent.Owner); // Ensure the RadarBlipComponent is present
+        LoadStoredBlipData(ent, true); // Load the initial data from the cartridge component to the blip component
     }
 
     private void OnCartridgeAdded(Entity<BlipCartridgeComponent> ent, ref CartridgeAddedEvent args)
@@ -56,6 +75,7 @@ public sealed class BlipCartridgeSystem : EntitySystem
                 blip,
                 cartridge,
                 cartridge.DefaultPreset);
+            blip.Enabled = cartridge.Enabled;
         }
         else
         {
@@ -63,17 +83,19 @@ public sealed class BlipCartridgeSystem : EntitySystem
             LoadBlipShapeData(blip, cartridge);
             LoadBlipScaleData(blip, cartridge);
         }
+
         LoadDefaultBlipData(blip, cartridge);
     }
 
-    private void ApplyPresetBlipData(RadarBlipComponent blip,
+    private void ApplyPresetBlipData(
+        RadarBlipComponent blip,
         BlipCartridgeComponent cartridge,
-        EntProtoId presetProto)
+        ProtoId<RadarBlipPresetPrototype> presetProto)
     {
         var safety = 3; // Safety counter to prevent infinite loops
         while (safety-- > 0)
         {
-            if (_prototype.TryIndex(presetProto, out RadarBlipPresetPrototype? preset))
+            if (_prototype.TryIndex(presetProto, out var preset))
             {
                 cartridge.BlipColor = preset.ColorSet;
                 cartridge.BlipShape = preset.ShapeSet;
@@ -112,7 +134,7 @@ public sealed class BlipCartridgeSystem : EntitySystem
         var safety = 3; // Safety counter to prevent infinite loops
         while (safety-- > 0)
         {
-            if (_prototype.TryIndex(cartridge.BlipColor, out BlipColorSetPrototype? colorSet))
+            if (_prototype.TryIndex(cartridge.BlipColor, out var colorSet))
             {
                 blip.RadarColor = Color.FromName(colorSet.Color);
                 blip.HighlightedRadarColor = Color.FromName(colorSet.HighlightedColor);
@@ -122,7 +144,7 @@ public sealed class BlipCartridgeSystem : EntitySystem
                 Log.Warning(
                     $"BlipCartridge {cartridge} has an invalid RadarBlipColorSet: "
                     + $"{cartridge.BlipColor}. Using default color.");
-                cartridge.BlipColor = "BlipPresetCivilian"; // Default color set
+                cartridge.BlipColor = "BlipColorGreen"; // Default color set
                 continue;
             }
 
@@ -141,7 +163,7 @@ public sealed class BlipCartridgeSystem : EntitySystem
     /// <param name="cartridge"></param>
     private void LoadBlipShapeData(RadarBlipComponent blip, BlipCartridgeComponent cartridge)
     {
-        if (_prototype.TryIndex(cartridge.BlipShape, out BlipShapeSetPrototype? shapeSet))
+        if (_prototype.TryIndex(cartridge.BlipShape, out var shapeSet))
         {
             blip.Shape = Enum.Parse<RadarBlipShape>(shapeSet.Shape, true);
         }
@@ -172,7 +194,6 @@ public sealed class BlipCartridgeSystem : EntitySystem
     /// </summary>
     private void LoadDefaultBlipData(RadarBlipComponent blip, BlipCartridgeComponent cartridge)
     {
-        blip.Enabled = cartridge.Enabled;
         blip.RequireNoGrid = false; // Assuming this is always true for the blip
         blip.VisibleFromOtherGrids = true; // Assuming this is always true for the blip
     }
@@ -189,17 +210,19 @@ public sealed class BlipCartridgeSystem : EntitySystem
     /// <summary>
     /// Changes the blip preset to the given preset.
     /// </summary>
-    private void ChangeBlipPreset(Entity<BlipCartridgeComponent> ent, EntProtoId presetProto)
+    private void ChangeBlipPreset(Entity<BlipCartridgeComponent> ent, ProtoId<RadarBlipPresetPrototype> presetProto)
     {
         var blipData = ent.Comp;
-        blipData.CurrentPreset = presetProto; // Update the current preset
-        LoadStoredBlipData(ent); // Reload the blip data to apply changes
+        ApplyPresetBlipData(
+            EnsureComp<RadarBlipComponent>(ent.Owner), // Ensure the RadarBlipComponent is present
+            blipData,
+            presetProto); // Apply the preset data to the blip component)
     }
 
     /// <summary>
     /// Changes the blip color to the given color.
     /// </summary>
-    private void ChangeBlipColor(Entity<BlipCartridgeComponent> ent, EntProtoId colorProto)
+    private void ChangeBlipColor(Entity<BlipCartridgeComponent> ent, ProtoId<BlipColorSetPrototype> colorProto)
     {
         var blipData = ent.Comp;
         blipData.BlipColor = colorProto; // Update the blip color
@@ -209,7 +232,7 @@ public sealed class BlipCartridgeSystem : EntitySystem
     /// <summary>
     /// Changes the blip shape to the given shape.
     /// </summary>
-    private void ChangeBlipShape(Entity<BlipCartridgeComponent> ent, EntProtoId shapeProto)
+    private void ChangeBlipShape(Entity<BlipCartridgeComponent> ent, ProtoId<BlipShapeSetPrototype> shapeProto)
     {
         var blipData = ent.Comp;
         blipData.BlipShape = shapeProto; // Update the blip shape
@@ -243,7 +266,8 @@ public sealed class BlipCartridgeSystem : EntitySystem
         // the toggle blip verb
         var toggleBlipVerb = new Verb()
         {
-            Text = radBlip.Enabled ? "BLIP: ON" : "BLIP: OFF",
+            Text = radBlip.Enabled ? "ON" : "OFF",
+            Category = BlipToggleCat,
             Act = () =>
             {
                 ToggleBlip(ent, radBlip);
@@ -267,6 +291,7 @@ public sealed class BlipCartridgeSystem : EntitySystem
             };
             args.Verbs.Add(presetVerb);
         }
+
         // the change color verb
         foreach (var color in blipData.ColorTable)
         {
@@ -277,6 +302,7 @@ public sealed class BlipCartridgeSystem : EntitySystem
             {
                 Text = $"{colorProto.Name}",
                 Category = BlipColorCat,
+                // Priority = (15 - colorProto.Order), // Use the order defined in the prototype for sorting
                 Act = () =>
                 {
                     ChangeBlipColor(ent, color);
@@ -284,6 +310,7 @@ public sealed class BlipCartridgeSystem : EntitySystem
             };
             args.Verbs.Add(colorVerb);
         }
+
         // the change shape verb
         foreach (var shape in blipData.ShapeTable)
         {
@@ -301,6 +328,7 @@ public sealed class BlipCartridgeSystem : EntitySystem
             };
             args.Verbs.Add(shapeVerb);
         }
+
         // the change scale verbs
         List<float> scales = new()
         {

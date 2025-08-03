@@ -26,3 +26,5 @@
       # - NotekeeperCartridge
       # - NewsReaderCartridge
       # - MailMetricsCartridge
+  - type: BlipCartridge
+    defaultPreset: BlipPresetMailCourier

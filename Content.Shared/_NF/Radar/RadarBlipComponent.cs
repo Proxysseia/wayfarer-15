@@ -49,4 +49,34 @@ public sealed partial class RadarBlipComponent : Component
     /// </summary>
     [DataField]
     public bool Enabled { get; set; } = true;
+
+    /// <summary>
+    /// Send an event to whatever has the component to do some radar blip logic.
+    /// </summary>
+    public bool SendRadarBlipEvent = true;
+}
+
+/// <summary>
+/// The event that is sent to the entity with the RadarBlipComponent.
+/// It will be modified by whatever handles the event, to tell us what to do
+/// </summary>
+[Serializable, ByRefEvent]
+public sealed class RadarBlipEvent : EntityEventArgs
+{
+    public Color? ChangeColor;
+    public RadarBlipShape? ChangeShape;
+    public float? ChangeScale;
+    public bool? ChangeEnabled;
+
+    public RadarBlipEvent(
+        Color? color = null,
+        RadarBlipShape? shape = null,
+        float? scale = null,
+        bool? enabled = null)
+    {
+        ChangeColor = color;
+        ChangeShape = shape;
+        ChangeScale = scale;
+        ChangeEnabled = enabled;
+    }
 }

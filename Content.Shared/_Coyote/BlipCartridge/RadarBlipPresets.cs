@@ -1,11 +1,12 @@
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 
-namespace Content.Server._Coyote.BlipCartridge;
+namespace Content.Shared._Coyote.BlipCartridge;
 
 /// <summary>
 /// This is a prototype for...
 /// </summary>
-[Prototype]
+[Prototype, Serializable]
 public sealed partial class RadarBlipPresetPrototype : IPrototype
 {
     /// <inheritdoc/>
@@ -22,13 +23,13 @@ public sealed partial class RadarBlipPresetPrototype : IPrototype
     /// The color set prototype ID to use for this blip preset.
     /// </summary>
     [DataField]
-    public EntProtoId ColorSet = "BlipPresetCivilian";
+    public ProtoId<BlipColorSetPrototype> ColorSet = "BlipColorGreen";
 
     /// <summary>
     /// The shape set prototype ID to use for this blip preset.
     /// </summary>
     [DataField]
-    public EntProtoId ShapeSet = "BlipPresetCircle";
+    public ProtoId<BlipShapeSetPrototype> ShapeSet = "BlipShapeCircle";
 
     /// <summary>
     /// The scale of the blip.

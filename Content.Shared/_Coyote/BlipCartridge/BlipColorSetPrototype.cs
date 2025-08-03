@@ -1,11 +1,12 @@
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 
-namespace Content.Server._Coyote.BlipCartridge;
+namespace Content.Shared._Coyote.BlipCartridge;
 
 /// <summary>
 /// This is a prototype for...
 /// </summary>
-[Prototype]
+[Prototype, Serializable]
 public sealed partial class BlipColorSetPrototype : IPrototype
 {
     /// <inheritdoc/>
@@ -30,4 +31,7 @@ public sealed partial class BlipColorSetPrototype : IPrototype
     /// </summary>
     [DataField]
     public string HighlightedColor = string.Empty;
+
+    [DataField]
+    public int Order = 1;
 }

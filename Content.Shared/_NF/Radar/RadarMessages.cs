@@ -23,7 +23,13 @@ public enum RadarBlipShape
     /// <summary>Hexagon shape.</summary>
     Hexagon,
     /// <summary>Arrow shape.</summary>
-    Arrow
+    Arrow,
+    /// <summary>Heart shape.</summary>
+    Heart,
+    /// <summary>X.</summary>
+    X,
+    /// <summary>A cool shape, which is: a circle with a line through it.</summary>
+    CircleWithLine,
 }
 
 /// <summary>
