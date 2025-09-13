@@ -251,7 +251,6 @@
   - type: StaticPrice
     price: 100
   - type: Docking
-    receiveOnly: true
   - type: DeviceNetwork
     prefix: device-address-prefix-portable-gaslock
   - type: Fixtures
