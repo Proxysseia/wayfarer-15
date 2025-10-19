@@ -30,6 +30,9 @@
   - !type:GiveItemOnHolidaySpecial
     holiday: FrontierBirthday
     prototype: FrontierBirthdayGift
+  - !type:AddComponentSpecial
+    components:
+    - type: CoolNfsd
 
 - type: startingGear
   id: DeputyGear
@@ -40,7 +43,7 @@
     - Flash
     - NFMagazineHighCapacityPistol35Overpressure
     - NFMagazineHighCapacityPistol35Rubber
-    - FrontierUplinkCoin10
+    - BaseSecurityUplinkRadioOfficer
 
 - type: chameleonOutfit
   id: DeputyChameleonOutfit
