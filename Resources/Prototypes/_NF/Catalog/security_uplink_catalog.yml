@@ -1056,7 +1056,7 @@
   id: UplinkSecurityEmpGrenadeAmmoMags
   name:  uplink-security-emp-ammo-mags-name
   description: uplink-security-emp-ammo-mags-desc
-  productEntity: MagazineGrenadeEMP
+  productEntity: NFMagazineGrenadeEMP
   icon: { sprite: Objects/Weapons/Grenades/empgrenade.rsi, state: icon}
   cost:
     FrontierUplinkCoin: 2
