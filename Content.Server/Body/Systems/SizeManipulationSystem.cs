@@ -1,21 +1,38 @@
 
+using Content.Server.Consent;
 using Content.Shared.Body.Components;
+using Content.Shared.Consent;
+using Content.Shared.Mind.Components;
 using Content.Shared.Popups;
 using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Log;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.Body.Systems;
 
 public sealed class SizeManipulationSystem : EntitySystem
 {
     [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly ConsentSystem _consent = default!;
+
+    private static readonly ProtoId<ConsentTogglePrototype> SizeManipulationConsent = "SizeManipulation";
 
     /// <summary>
     /// Applies a size change to the target entity
     /// </summary>
     public bool TryChangeSize(EntityUid target, SizeManipulatorMode mode, EntityUid? user = null)
     {
+        // Check consent first
+        if (!_consent.HasConsent(target, SizeManipulationConsent))
+        {
+            if (user != null)
+                _popup.PopupEntity(Loc.GetString("size-manipulator-consent-denied"), target, user.Value);
+            
+            Logger.Debug($"SizeManipulation: Consent denied for {ToPrettyString(target)}");
+            return false;
+        }
+
         var sizeComp = EnsureComp<SizeAffectedComponent>(target);
 
         Logger.Debug($"SizeManipulation: TryChangeSize called on {ToPrettyString(target)}, mode: {mode}, current scale: {sizeComp.ScaleMultiplier}");
