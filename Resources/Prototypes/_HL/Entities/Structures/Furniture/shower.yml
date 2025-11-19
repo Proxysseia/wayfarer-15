@@ -24,12 +24,12 @@
       canCollide: false
     - type: ItemToggle
       soundActivate:
-        path: /Audio/_HL/Ambience/Objects/shower_enable.ogg
+        path: /Audio/_HL/Ambience/Shower/shower_enable.ogg
       soundDeactivate:
-        path: /Audio/_HL/Ambience/Objects/shower_enable.ogg
+        path: /Audio/_HL/Ambience/Shower/shower_enable.ogg
     - type: ItemToggleActiveSound
       activeSound:
-        path: /Audio/_HL/Ambience/Objects/shower_running.ogg
+        path: /Audio/_HL/Ambience/Shower/shower_running.ogg
     - type: UseDelay
       delay: 1.0
     - type: InteractionOutline
