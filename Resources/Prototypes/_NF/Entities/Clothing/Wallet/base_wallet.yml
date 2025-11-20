@@ -36,6 +36,9 @@
       - Card # single cards
       - NFEmagPass
       - IDCardStandard
+      - IdCard
+      tags:
+      - Ring
     blacklist:
       tags:
       - Book
