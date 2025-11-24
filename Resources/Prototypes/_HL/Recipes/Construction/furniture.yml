@@ -17,11 +17,11 @@
   startNode: start
   targetNode: shower
   category: construction-category-furniture
-  description: A shower, complete with bluespace water.
-  icon:
-    sprite: _HL/Structures/Furniture/shower.rsi
-    state: shower
-    objectType: Structure
+  # description: A shower, complete with bluespace water. # CS commented out due incompatibility, likely due to upstream codebase changes.
+  # icon:
+    # sprite: _HL/Structures/Furniture/shower.rsi
+    # state: shower
+    # objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
   canBuildInImpassable: false
