@@ -48,7 +48,7 @@ public sealed class CharacterInfoSystem : EntitySystem
         // Check if player is connected and get mind info
         EntityUid? mindEntity = null;
         MindComponent? mindComp = null;
-        
+
         if (TryComp<MindContainerComponent>(entity, out var mindContainer)
             && _mindSystem.GetMind(entity, mindContainer) is { } mind
             && TryComp<MindComponent>(mind, out var mindComponent))
