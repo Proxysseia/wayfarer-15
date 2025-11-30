@@ -81,7 +81,7 @@ namespace Content.Server.Preferences.Managers
             if (ShouldStorePrefs(message.MsgChannel.AuthType))
             {
                 await _db.SaveSelectedCharacterIndexAsync(message.MsgChannel.UserId, message.SelectedCharacterIndex);
-                
+
                 // Reload consent settings for the new character
                 await _consentManager.ReloadCharacterConsent(userId, index);
             }

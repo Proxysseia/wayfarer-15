@@ -5,7 +5,6 @@ using Content.Shared.Verbs;
 using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 using Robust.Shared.Utility;
-using System.Text.RegularExpressions;
 
 namespace Content.Client.Examine;
 
@@ -18,7 +17,6 @@ public sealed class CharacterExamineSystem : EntitySystem
     [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
     private readonly Dictionary<NetEntity, CharacterDetailWindow> _openWindows = new();
-    private static readonly Regex UrlRegex = new Regex(@"https?://[^\s]+", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     public override void Initialize()
     {
@@ -78,11 +76,11 @@ public sealed class CharacterExamineSystem : EntitySystem
         // Set character info
         window.SetCharacterInfo(message.CharacterName, message.JobTitle);
 
-        // Set description with clickable URLs
+        // Set description
         var descriptionMessage = new FormattedMessage();
         if (!string.IsNullOrWhiteSpace(message.Description))
         {
-            descriptionMessage.AddMarkup(ConvertUrlsToLinks(message.Description));
+            descriptionMessage.AddText(message.Description);
         }
         else
         {
@@ -90,25 +88,17 @@ public sealed class CharacterExamineSystem : EntitySystem
         }
         window.SetDescription(descriptionMessage);
 
-        // Set consent text with clickable URLs
+        // Set consent text
         var consentMessage = new FormattedMessage();
         if (!string.IsNullOrWhiteSpace(message.ConsentText))
         {
-            consentMessage.AddMarkup(ConvertUrlsToLinks(message.ConsentText));
+            consentMessage.AddText(message.ConsentText);
         }
         else
         {
             consentMessage.AddText(Loc.GetString("character-window-no-consent"));
         }
         window.SetConsent(consentMessage);
-    }
-
-    /// <summary>
-    /// Converts plain text URLs to clickable [url] markup tags
-    /// </summary>
-    private string ConvertUrlsToLinks(string text)
-    {
-        return UrlRegex.Replace(text, match => $"[url]{match.Value}[/url]");
     }
 }
 
