@@ -95,7 +95,7 @@
       - tag: Candle
         name: construction-graph-tag-candle
         icon:
-          sprite: Entities/Objects/Misc/candle.rsi
+          sprite: Objects/Misc/candles.rsi
           state: candle-big
         doAfter: 1
       - material: Cardboard
@@ -113,12 +113,12 @@
   graph:
   - node: start
     edges:
-    - to: lantern
+    - to: lantern-red
       steps:
-      - tag: Candle
+      - tag: CandleRed
         name: construction-graph-tag-candle
         icon:
-          sprite: Entities/Objects/Misc/candle.rsi
+          sprite: Objects/Misc/candles.rsi
           state: candle-big
         doAfter: 1
       - material: Cardboard
@@ -127,8 +127,8 @@
       - material: Paper
         amount: 4
         doAfter: 1
-  - node: lantern
-    entity: PaperLantern
+  - node: lantern-red
+    entity: PaperLanternRed
 
 - type: constructionGraph
   id: PaperLanternBlue
@@ -136,12 +136,12 @@
   graph:
   - node: start
     edges:
-    - to: lantern
+    - to: lantern-blue
       steps:
-      - tag: Candle
+      - tag: CandleBlue
         name: construction-graph-tag-candle
         icon:
-          sprite: Entities/Objects/Misc/candle.rsi
+          sprite: Objects/Misc/candles.rsi
           state: candle-big
         doAfter: 1
       - material: Cardboard
@@ -150,8 +150,8 @@
       - material: Paper
         amount: 4
         doAfter: 1
-  - node: lantern
-    entity: PaperLantern
+  - node: lantern-blue
+    entity: PaperLanternBlue
 
 - type: constructionGraph
   id: PaperLanternGreen
@@ -159,12 +159,12 @@
   graph:
   - node: start
     edges:
-    - to: lantern
+    - to: lantern-green
       steps:
-      - tag: Candle
+      - tag: CandleGreen
         name: construction-graph-tag-candle
         icon:
-          sprite: Entities/Objects/Misc/candle.rsi
+          sprite: Objects/Misc/candles.rsi
           state: candle-big
         doAfter: 1
       - material: Cardboard
@@ -173,8 +173,8 @@
       - material: Paper
         amount: 4
         doAfter: 1
-  - node: lantern
-    entity: PaperLantern
+  - node: lantern-green
+    entity: PaperLanternGreen
 
 - type: constructionGraph
   id: PaperLanternPurple
@@ -182,12 +182,12 @@
   graph:
   - node: start
     edges:
-    - to: lantern
+    - to: lantern-purple
       steps:
-      - tag: Candle
+      - tag: CandlePurple
         name: construction-graph-tag-candle
         icon:
-          sprite: Entities/Objects/Misc/candle.rsi
+          sprite: Objects/Misc/candles.rsi
           state: candle-big
         doAfter: 1
       - material: Cardboard
@@ -196,5 +196,5 @@
       - material: Paper
         amount: 4
         doAfter: 1
-  - node: lantern
-    entity: PaperLantern
+  - node: lantern-purple
+    entity: PaperLanternPurple
