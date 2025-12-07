@@ -94,6 +94,7 @@ public sealed class VoreSystem : EntitySystem
             || args.User == args.Target
             || !HasComp<VoreComponent>(args.Target)
             || !_consent.HasConsent(args.Target, "Vore")
+            || !_consent.HasConsent(args.User, "Vore")
             || HasComp<VoredComponent>(args.User))
             return;
 
@@ -112,6 +113,32 @@ public sealed class VoreSystem : EntitySystem
     {
         if (args.User != args.Target)
             return;
+
+        // Add toggle for showing examine text
+        if (component.ShowOnExamine)
+        {
+            InnateVerb verbHideExamine = new()
+            {
+                Act = () => component.ShowOnExamine = false,
+                Text = Loc.GetString("vore-show-examine-on"),
+                Category = VerbCategory.Vore,
+                Priority = 0,
+                Message = "Will show to bystanders examine text that suggests you've consumed people"
+            };
+            args.Verbs.Add(verbHideExamine);
+        }
+        else
+        {
+            InnateVerb verbShowExamine = new()
+            {
+                Act = () => component.ShowOnExamine = true,
+                Text = Loc.GetString("vore-show-examine-off"),
+                Category = VerbCategory.Vore,
+                Priority = 0,
+                Message = "Will show to bystanders examine text that suggests you've consumed people"
+            };
+            args.Verbs.Add(verbShowExamine);
+        }
 
         foreach (var prey in component.Stomach.ContainedEntities)
         {
@@ -407,6 +434,10 @@ public sealed class VoreSystem : EntitySystem
     {
         if (!_containerSystem.TryGetContainer(uid, "stomach", out var stomach)
             || stomach.ContainedEntities.Count < 1)
+            return;
+
+        // Check if the entity being examined has ShowOnExamine enabled
+        if (!TryComp<VoreComponent>(uid, out var voreComp) || !voreComp.ShowOnExamine)
             return;
 
         args.PushMarkup(Loc.GetString("vore-examine", ("count", stomach.ContainedEntities.Count)), -1);

@@ -15,4 +15,7 @@ public sealed partial class VoreComponent : Component
 
     [DataField("delay")]
     public float Delay = 3f;
+
+    [DataField]
+    public bool ShowOnExamine = true;
 }
