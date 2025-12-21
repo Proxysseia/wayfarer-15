@@ -583,16 +583,16 @@ public sealed partial class ChatSystem : SharedChatSystem
         var wrappedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
             ("entityName", name),
             ("message", FormattedMessage.EscapeText(message)),
-            ("chatColor", chatColor ?? Color.White.ToHex()));
+            ("color", chatColor ?? Color.White.ToHex()));
 
         var wrappedobfuscatedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
             ("entityName", nameIdentity),
             ("message", FormattedMessage.EscapeText(obfuscatedMessage)),
-            ("chatColor", chatColor ?? Color.White.ToHex()));
+            ("color", chatColor ?? Color.White.ToHex()));
 
         var wrappedUnknownMessage = Loc.GetString("chat-manager-entity-whisper-unknown-wrap-message",
             ("message", FormattedMessage.EscapeText(obfuscatedMessage)),
-            ("chatColor", chatColor ?? Color.White.ToHex()));
+            ("color", chatColor ?? Color.White.ToHex()));
 
 
         foreach (var (session, data) in GetRecipients(source, WhisperMuffledRange))
