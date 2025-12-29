@@ -29,3 +29,10 @@ Entries:
   id: 6494
   time: '2025-12-28T19:31:36.0000000+00:00'
   url: https://github.com/drraccoony/wayfarer-14/pull/59
+- author: drraccoony
+  changes:
+    - type: Add
+      message: Ported lewd items
+  id: 6495
+  time: '2025-12-29T01:23:37.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/64
