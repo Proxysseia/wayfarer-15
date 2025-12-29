@@ -36,3 +36,10 @@ Entries:
   id: 6495
   time: '2025-12-29T01:23:37.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/64
+- author: drraccoony
+  changes:
+    - type: Add
+      message: Added (ported) Horny Hawker vend
+  id: 6496
+  time: '2025-12-29T01:37:24.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/65
