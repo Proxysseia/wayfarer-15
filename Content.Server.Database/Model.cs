@@ -47,6 +47,8 @@ namespace Content.Server.Database
         public DbSet<RoleWhitelist> RoleWhitelists { get; set; } = null!;
         public DbSet<BanTemplate> BanTemplate { get; set; } = null!;
         public DbSet<IPIntelCache> IPIntelCache { get; set; } = null!;
+        public DbSet<WayfarerSafetyDepositBox> WayfarerSafetyDepositBox { get; set; } = null!;
+        public DbSet<WayfarerSafetyDepositBoxItem> WayfarerSafetyDepositBoxItem { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -382,6 +384,23 @@ namespace Content.Server.Database
                 .OwnsOne(p => p.HWId)
                 .Property(p => p.Type)
                 .HasDefaultValue(HwidType.Legacy);
+
+            // Wayfarer Safety Deposit Box configuration
+            modelBuilder.Entity<WayfarerSafetyDepositBox>()
+                .HasIndex(b => b.BoxId)
+                .IsUnique();
+
+            modelBuilder.Entity<WayfarerSafetyDepositBox>()
+                .HasIndex(b => b.OwnerUserId);
+
+            modelBuilder.Entity<WayfarerSafetyDepositBoxItem>()
+                .HasOne(i => i.Box)
+                .WithMany(b => b.Items)
+                .HasForeignKey(i => i.BoxId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<WayfarerSafetyDepositBoxItem>()
+                .HasIndex(i => i.BoxId);
         }
 
         public virtual IQueryable<AdminLog> SearchLogs(IQueryable<AdminLog> query, string searchText)
@@ -1361,5 +1380,78 @@ namespace Content.Server.Database
         /// The score IPIntel returned
         /// </summary>
         public float Score { get; set; }
+    }
+
+    // Wayfarer Safety Deposit Box Tables
+    public class WayfarerSafetyDepositBox
+    {
+        [Key]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Unique identifier for this deposit box
+        /// </summary>
+        public Guid BoxId { get; set; }
+
+        /// <summary>
+        /// The user ID of the owner
+        /// </summary>
+        public Guid OwnerUserId { get; set; }
+
+        /// <summary>
+        /// The character profile index (slot number) of the owner
+        /// </summary>
+        public int CharacterIndex { get; set; }
+
+        /// <summary>
+        /// Display name of the owner when the box was created
+        /// </summary>
+        [Required]
+        public string OwnerName { get; set; } = null!;
+
+        /// <summary>
+        /// Optional nickname for the box (from label)
+        /// </summary>
+        public string? Nickname { get; set; }
+
+        /// <summary>
+        /// The size/type of box (Small, Medium, Large)
+        /// </summary>
+        [Required]
+        public string BoxSize { get; set; } = "Small";
+
+        /// <summary>
+        /// When the box was purchased
+        /// </summary>
+        public DateTime PurchaseDate { get; set; }
+
+        /// <summary>
+        /// Items stored in this box
+        /// </summary>
+        public List<WayfarerSafetyDepositBoxItem> Items { get; set; } = new();
+    }
+
+    public class WayfarerSafetyDepositBoxItem
+    {
+        [Key]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Foreign key to the deposit box
+        /// </summary>
+        public int BoxId { get; set; }
+
+        public WayfarerSafetyDepositBox Box { get; set; } = null!;
+
+        /// <summary>
+        /// Serialized entity data (YAML format)
+        /// </summary>
+        [Required]
+        public string EntityData { get; set; } = null!;
+
+        /// <summary>
+        /// When this item was deposited
+        /// </summary>
+        public DateTime DepositDate { get; set; }
     }
 }

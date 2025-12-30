@@ -1,0 +1,120 @@
+# Safety Deposit Box Entities
+
+- type: entity
+  id: SafetyDepositBoxSmall
+  name: safety deposit box (small)
+  description: A small secure box for storing valuables. Can hold 2x2 items.
+  parent: BaseStorageItem
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/Toolboxes/toolbox_red.rsi
+    state: icon
+  - type: Item
+    size: Small
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,1,1
+    blacklist:
+      components:
+      - IdCard
+      - Currency  # Prevents telecrystals and other currency items
+      - Store     # Prevents uplinks
+      - Gun       # Prevents firearms
+  - type: SafetyDepositBox
+  - type: Appearance
+  - type: Tag
+    tags:
+    - SafetyDepositBox
+
+- type: entity
+  id: SafetyDepositBoxMedium
+  name: safety deposit box (medium)
+  description: A medium secure box for storing valuables. Can hold 2x4 items.
+  parent: BaseStorageItem
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/Toolboxes/toolbox_blue.rsi
+    state: icon
+  - type: Item
+    size: Normal
+  - type: Storage
+    maxItemSize: Normal
+    grid:
+    - 0,0,1,3
+    blacklist:
+      components:
+      - IdCard
+      - Currency
+      - Store
+      - Gun
+  - type: SafetyDepositBox
+  - type: Appearance
+  - type: Tag
+    tags:
+    - SafetyDepositBox
+
+- type: entity
+  id: SafetyDepositBoxLarge
+  name: safety deposit box (large)
+  description: A large secure box for storing valuables. Can hold 2x6 items.
+  parent: BaseStorageItem
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/Toolboxes/toolbox_yellow.rsi
+    state: icon
+  - type: Item
+    size: Normal
+  - type: Storage
+    maxItemSize: Normal
+    grid:
+    - 0,0,1,5
+    blacklist:
+      components:
+      - IdCard
+      - Currency
+      - Store
+      - Gun
+  - type: SafetyDepositBox
+  - type: Appearance
+  - type: Tag
+    tags:
+    - SafetyDepositBox
+
+- type: entity
+  id: SafetyDepositConsole
+  name: safety deposit box console
+  description: "A console for purchasing and managing safety deposit boxes. Small: $250,000 | Medium: $750,000 | Large: $1,250,000"
+  parent: BaseStructure
+  components:
+  - type: Sprite
+    netsync: false
+    noRot: true
+    sprite: _NF/Structures/Machines/atm/atm.rsi
+    layers:
+    - map: ["computerLayerBody"]
+      state: icon
+    - map: ["computerLayerScreen"]
+      state: unshaded
+  - type: SafetyDepositConsole
+    boxSlot:
+      name: safety-deposit-console-boxSlot
+      insertSound: /Audio/Machines/scanning.ogg
+      ejectSound: /Audio/Machines/tray_eject.ogg
+      ejectOnBreak: true
+      swap: false
+      whitelist:
+        tags:
+        - SafetyDepositBox
+  - type: ItemSlots
+  - type: ContainerContainer
+    containers:
+      safety-deposit-console-boxSlot: !type:ContainerSlot
+  - type: ActivatableUI
+    key: enum.SafetyDepositConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.SafetyDepositConsoleUiKey.Key:
+        type: SafetyDepositConsoleBoundUserInterface
+  - type: Anchorable
+  - type: Pullable

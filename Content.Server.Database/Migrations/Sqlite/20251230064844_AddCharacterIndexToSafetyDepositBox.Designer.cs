@@ -3,6 +3,7 @@ using System;
 using Content.Server.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Content.Server.Database.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteServerDbContext))]
-    partial class SqliteServerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251230064844_AddCharacterIndexToSafetyDepositBox")]
+    partial class AddCharacterIndexToSafetyDepositBox
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
@@ -1402,18 +1405,9 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("box_id");
 
-                    b.Property<string>("BoxSize")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("box_size");
-
                     b.Property<int>("CharacterIndex")
                         .HasColumnType("INTEGER")
                         .HasColumnName("character_index");
-
-                    b.Property<string>("Nickname")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("nickname");
 
                     b.Property<string>("OwnerName")
                         .IsRequired()
