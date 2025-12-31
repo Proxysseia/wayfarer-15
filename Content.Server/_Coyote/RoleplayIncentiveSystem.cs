@@ -166,7 +166,9 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
         string message
         )
     {
-        if (_chatsys.TryEmoteChatInput(source, message))
+        // Check if the message is a valid emote trigger WITHOUT invoking it
+        // (to avoid playing sounds/effects twice)
+        if (_chatsys.IsEmoteTrigger(message))
         {
             // if the message is a valid emote, then its a quick emote
             return RoleplayActs.QuickEmoting;

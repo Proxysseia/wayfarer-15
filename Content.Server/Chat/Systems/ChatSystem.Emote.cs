@@ -196,6 +196,18 @@ public partial class ChatSystem
         return validEmote;
     }
 
+    /// <summary>
+    /// Checks if the given text matches an emote trigger without actually invoking the emote.
+    /// Used by systems that need to detect emotes without playing sounds/effects.
+    /// </summary>
+    /// <param name="textInput">The text to check</param>
+    /// <returns>True if the text matches a valid emote trigger</returns>
+    public bool IsEmoteTrigger(string textInput)
+    {
+        var actionTrimmedLower = TrimPunctuation(textInput.ToLower());
+        return _wordEmoteDict.ContainsKey(actionTrimmedLower);
+    }
+
     static string TrimPunctuation(string textInput)
     {
         var trimEnd = textInput.Length;
