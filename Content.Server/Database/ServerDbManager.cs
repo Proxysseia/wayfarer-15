@@ -355,6 +355,18 @@ namespace Content.Server.Database
 
         #endregion
 
+        #region Wayfarer Round Summaries
+
+        Task AddWayfarerRoundSummary(
+            int roundNumber,
+            DateTime roundStartTime,
+            DateTime roundEndTime,
+            JsonDocument? profitLossData,
+            JsonDocument? playerStories,
+            JsonDocument? playerManifest);
+
+        #endregion
+
         #region DB Notifications
 
         void SubscribeToNotifications(Action<DatabaseNotification> handler);
@@ -1092,6 +1104,24 @@ namespace Content.Server.Database
         {
             DbWriteOpsMetric.Inc();
             return RunDbCommand(() => _db.CleanIPIntelCache(range));
+        }
+
+        public Task AddWayfarerRoundSummary(
+            int roundNumber,
+            DateTime roundStartTime,
+            DateTime roundEndTime,
+            JsonDocument? profitLossData,
+            JsonDocument? playerStories,
+            JsonDocument? playerManifest)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.AddWayfarerRoundSummary(
+                roundNumber,
+                roundStartTime,
+                roundEndTime,
+                profitLossData,
+                playerStories,
+                playerManifest));
         }
 
         public void SubscribeToNotifications(Action<DatabaseNotification> handler)

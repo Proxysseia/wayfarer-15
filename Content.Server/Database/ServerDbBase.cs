@@ -1976,6 +1976,34 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({players[player]}, {id}
 
         #endregion
 
+        #region Wayfarer Round Summaries
+
+        public async Task AddWayfarerRoundSummary(
+            int roundNumber,
+            DateTime roundStartTime,
+            DateTime roundEndTime,
+            JsonDocument? profitLossData,
+            JsonDocument? playerStories,
+            JsonDocument? playerManifest)
+        {
+            await using var db = await GetDb();
+
+            var summary = new WayfarerRoundSummary
+            {
+                RoundNumber = roundNumber,
+                RoundStartTime = NormalizeDatabaseTime(roundStartTime),
+                RoundEndTime = NormalizeDatabaseTime(roundEndTime),
+                ProfitLossData = profitLossData,
+                PlayerStories = playerStories,
+                PlayerManifest = playerManifest
+            };
+
+            db.DbContext.WayfarerRoundSummaries.Add(summary);
+            await db.DbContext.SaveChangesAsync();
+        }
+
+        #endregion
+
         public abstract Task SendNotification(DatabaseNotification notification);
 
         // SQLite returns DateTime as Kind=Unspecified, Npgsql actually knows for sure it's Kind=Utc.

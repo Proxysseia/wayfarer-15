@@ -8,6 +8,7 @@ using Content.Server._NF.Bank;
 using Content.Server._NF.GameRule.Components;
 using Content.Server._NF.GameTicking.Events;
 using Content.Server.Cargo.Components;
+using Content.Server.Database;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Presets;
 using Content.Server.GameTicking.Rules;
@@ -41,11 +42,13 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
     [Dependency] private readonly IBaseServer _baseServer = default!;
     [Dependency] private readonly IEntitySystemManager _entSys = default!;
     [Dependency] private readonly ShuttleRecordsSystem _shuttleRecordsSystem = default!;
+    [Dependency] private readonly IServerDbManager _db = default!;
 
     private readonly HttpClient _httpClient = new();
 
     private readonly ProtoId<GamePresetPrototype> _fallbackPresetID = "NFPirates";
     private ISawmill _sawmill = default!;
+    private DateTime _roundStartTime;
 
     public sealed class PlayerRoundBankInformation
     {
@@ -58,13 +61,16 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
         // User ID: used to validate incoming information.
         // If, for whatever reason, another player takes over this character, their initial balance is inaccurate.
         public NetUserId UserId;
+        // Job/Role name
+        public string Role;
 
-        public PlayerRoundBankInformation(int startBalance, string name, NetUserId userId)
+        public PlayerRoundBankInformation(int startBalance, string name, NetUserId userId, string role)
         {
             StartBalance = startBalance;
             EndBalance = -1;
             Name = name;
             UserId = userId;
+            Role = role;
         }
     }
 
@@ -85,6 +91,7 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
 
     protected override void AppendRoundEndText(EntityUid uid, NFAdventureRuleComponent component, GameRuleComponent gameRule, ref RoundEndTextAppendEvent ev)
     {
+        _sawmill.Info("AppendRoundEndText called! Starting round end processing...");
         ev.AddLine(Loc.GetString("adventure-list-start"));
         var allScore = new List<Tuple<string, int>>();
 
@@ -116,6 +123,9 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
             ev.AddLine($"- {playerInfo.Name} {summaryText}");
             allScore.Add(new Tuple<string, int>(playerInfo.Name, profit));
         }
+
+        // Save round summary to database (do this regardless of score count)
+        _ = SaveRoundSummaryToDatabase(allScore);
 
         if (!(allScore.Count >= 1))
             return;
@@ -162,7 +172,14 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
             if (!_players.ContainsKey(mobUid)
                 && HasComp<BankAccountComponent>(mobUid))
             {
-                _players[mobUid] = new PlayerRoundBankInformation(ev.Profile.BankBalance, MetaData(mobUid).EntityName, ev.Player.UserId);
+                // Get the player's job/role
+                var role = "Unknown";
+                if (ev.JobId != null)
+                {
+                    role = ev.JobId;
+                }
+                
+                _players[mobUid] = new PlayerRoundBankInformation(ev.Profile.BankBalance, MetaData(mobUid).EntityName, ev.Player.UserId, role);
             }
         }
     }
@@ -207,6 +224,8 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
 
     protected override void Started(EntityUid uid, NFAdventureRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
+        _roundStartTime = DateTime.UtcNow;
+        _sawmill.Info($"NFAdventure rule started! Round start time recorded: {_roundStartTime}");
         var mapUid = GameTicker.DefaultMap;
 
         //First, we need to grab the list and sort it into its respective spawning logics
@@ -390,6 +409,97 @@ public sealed class NFAdventureRuleSystem : GameRuleSystem<NFAdventureRuleCompon
         if (!request.IsSuccessStatusCode)
         {
             _sawmill.Error($"Discord returned bad status code when posting message: {request.StatusCode}\nResponse: {reply}");
+        }
+    }
+
+    private async Task SaveRoundSummaryToDatabase(List<Tuple<string, int>> allScore)
+    {
+        try
+        {
+            _sawmill.Info("SaveRoundSummaryToDatabase: Starting...");
+            
+            var gameTicker = _entSys.GetEntitySystemOrNull<GameTicker>();
+            if (gameTicker == null)
+            {
+                _sawmill.Warning("SaveRoundSummaryToDatabase: GameTicker is null");
+                return;
+            }
+
+            var roundId = gameTicker.RoundId;
+            var roundEndTime = DateTime.UtcNow;
+
+            _sawmill.Info($"SaveRoundSummaryToDatabase: Round {roundId}, Players count: {_players.Count}");
+
+            // Build profit/loss data with username and character name
+            var profitLossData = new List<Dictionary<string, object>>();
+            var playerManifestData = new List<Dictionary<string, string>>();
+
+            var sortedPlayers = _players.ToList();
+            sortedPlayers.Sort((p1, p2) => p1.Value.Name.CompareTo(p2.Value.Name));
+
+            foreach (var (player, playerInfo) in sortedPlayers)
+            {
+                var endBalance = playerInfo.EndBalance;
+                if (_bank.TryGetBalance(player, out var bankBalance))
+                {
+                    endBalance = bankBalance;
+                }
+
+                if (endBalance < 0)
+                    continue;
+
+                var profit = endBalance - playerInfo.StartBalance;
+                
+                // Get username from NetUserId
+                var username = playerInfo.UserId.ToString();
+                if (_player.TryGetSessionById(playerInfo.UserId, out var session))
+                {
+                    username = session.Name;
+                }
+
+                // Add to profit/loss data
+                profitLossData.Add(new Dictionary<string, object>
+                {
+                    { "username", username },
+                    { "characterName", playerInfo.Name },
+                    { "profitLoss", profit }
+                });
+
+                // Add to player manifest
+                playerManifestData.Add(new Dictionary<string, string>
+                {
+                    { "username", username },
+                    { "characterName", playerInfo.Name },
+                    { "role", playerInfo.Role }
+                });
+            }
+
+            _sawmill.Info($"SaveRoundSummaryToDatabase: Profit/Loss entries: {profitLossData.Count}");
+
+            // Serialize to JSON documents
+            var profitLossJson = JsonDocument.Parse(JsonSerializer.Serialize(profitLossData));
+            var playerManifestJson = JsonDocument.Parse(JsonSerializer.Serialize(playerManifestData));
+            
+            // Player stories - placeholder for now, would need separate tracking system
+            var playerStoriesJson = JsonDocument.Parse("[]");
+
+            _sawmill.Info($"SaveRoundSummaryToDatabase: Calling database save for round {roundId}");
+
+            // Save to database
+            await _db.AddWayfarerRoundSummary(
+                roundId,
+                _roundStartTime,
+                roundEndTime,
+                profitLossJson,
+                playerStoriesJson,
+                playerManifestJson
+            );
+
+            _sawmill.Info($"Saved round {roundId} summary to database successfully");
+        }
+        catch (Exception ex)
+        {
+            _sawmill.Error($"Failed to save round summary to database: {ex}");
         }
     }
 
