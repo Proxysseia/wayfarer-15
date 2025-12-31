@@ -121,3 +121,13 @@ Entries:
   id: 6505
   time: '2025-12-31T04:14:45.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/92
+- author: drraccoony
+  changes:
+    - type: Add
+      message: >-
+        Character API Endpoint. Allows external sources, like a website, to show
+        which characters are currently playing, along with the option for
+        players to opt-out on the character setup screen.
+  id: 6506
+  time: '2025-12-31T23:46:54.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/94
