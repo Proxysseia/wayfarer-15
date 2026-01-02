@@ -4,9 +4,6 @@
   id: MobTajaranBase
   abstract: true
   components:
-  - type: Hunger
-    baseDecayRate: 0.02083333332 # 25% more than default
-  - type: Thirst
   - type: Sprite
     scale: 0.8, 0.8
   - type: HumanoidAppearance
@@ -42,10 +39,7 @@
     coefficient: 0.1
   - type: Flammable
     fireStackIncreaseMultiplier: 1.35 # until you light it up, cuz it's oily too
-  - type: NightVision
-    color: "#808080"
-    activateSound: null
-    deactivateSound: null
+  - type: BlackAndWhiteOverlay
   - type: Flashable
     eyeDamageChance: 0.3
     eyeDamage: 1
@@ -83,43 +77,26 @@
       Unsexed: MaleFelinid
   - type: Felinid # real
   - type: NoShoesSilentFootsteps
-  - type: StepTriggerImmune
-    whitelist:
-      types:
-        - Shard
-        - Landmine
-        - Mousetrap
-        - SlipEntity
-  - type: LanguageKnowledge
-    speaks:
-    - TauCetiBasic
-    - SiikMaas
-    understands:
-    - TauCetiBasic
-    - SiikMaas
+  - type: PreventableStepTriggerComponent
   - type: Tag
     tags:
     - CanPilot
     - FootstepSound
     - DoorBumpOpener
     - FelinidEmotes
-  - type: FootPrints
   - type: Temperature
-    coldDamageThreshold: 248.15 # -25 degrees centigrade, like 12 degrees below normal
-    currentTemperature: 311.76  # Body temperature of cat
+    coldDamageThreshold: 230 # -25 degrees centigrade, like 12 degrees below normal
+    currentTemperature: 312  # Body temperature of cat
     heatDamage:
       types:
         Cold: 0.65 # in line with cold resist
-    coldDamage:
-      types:
-        Heat: 2 # poor kitty
   - type: ThermalRegulator
     normalBodyTemperature: 311.76
 
 
 - type: entity
   save: false
-  name: Urist McHands
+  name: Urist McTajaran
   parent: MobHumanDummy
   id: MobTajaranDummy
   categories: [ HideSpawnMenu ]
