@@ -1,12 +1,17 @@
+using Content.Server.Chat.Managers;
 using Content.Server.Chat.Systems;
 using Content.Server.Emp;
 using Content.Server.Radio.Components;
+using Content.Shared.Chat;
 using Content.Shared.Inventory.Events;
+using Content.Shared.Popups;
 using Content.Shared.Radio;
 using Content.Shared.Radio.Components;
 using Content.Shared.Radio.EntitySystems;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
 namespace Content.Server.Radio.EntitySystems;
 
@@ -14,6 +19,14 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
 {
     [Dependency] private readonly INetManager _netMan = default!;
     [Dependency] private readonly RadioSystem _radio = default!;
+    [Dependency] private readonly DisabledRadioChannelsSystem _disabledChannels = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly IChatManager _chatManager = default!;
+
+    private TimeSpan _nextReminderCheck = TimeSpan.Zero;
+    private const float ReminderCheckInterval = 60f; // Check every 60 seconds instead of every frame
 
     public override void Initialize()
     {
@@ -24,6 +37,62 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
         SubscribeLocalEvent<WearingHeadsetComponent, EntitySpokeEvent>(OnSpeak);
 
         SubscribeLocalEvent<HeadsetComponent, EmpPulseEvent>(OnEmpPulse);
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        var currentTime = _timing.CurTime;
+        
+        // Only check for reminders every 60 seconds to reduce performance impact
+        if (currentTime < _nextReminderCheck)
+            return;
+
+        _nextReminderCheck = currentTime + TimeSpan.FromSeconds(ReminderCheckInterval);
+
+        // Check for disabled channel reminders
+        var query = EntityQueryEnumerator<DisabledRadioChannelsComponent, HeadsetComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var disabled, out var headset, out var xform))
+        {
+            // Only remind if headset is equipped and has disabled channels
+            if (!headset.IsEquipped || disabled.DisabledChannels.Count == 0)
+                continue;
+
+            if (currentTime - disabled.LastReminderTime < disabled.ReminderInterval)
+                continue;
+
+            disabled.LastReminderTime = currentTime;
+            Dirty(uid, disabled);
+
+            // Send reminder to the wearer
+            var parent = xform.ParentUid;
+            if (!parent.IsValid() || !TryComp<ActorComponent>(parent, out var actor))
+                continue;
+
+            // Build the list of disabled channels
+            var channelNames = new List<string>();
+            foreach (var channelId in disabled.DisabledChannels)
+            {
+                if (_prototypeManager.TryIndex<RadioChannelPrototype>(channelId, out var channel))
+                {
+                    channelNames.Add(channel.LocalizedName);
+                }
+            }
+
+            if (channelNames.Count > 0)
+            {
+                var message = Loc.GetString("disabled-radio-channels-reminder",
+                    ("channels", string.Join(", ", channelNames)));
+                _chatManager.ChatMessageToOne(
+                    ChatChannel.Server,
+                    message,
+                    message,
+                    source: EntityUid.Invalid,
+                    hideChat: false,
+                    client: actor.PlayerSession.Channel);
+            }
+        }
     }
 
     private void OnKeysChanged(EntityUid uid, HeadsetComponent component, EncryptionChannelsChangedEvent args)
@@ -99,6 +168,10 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
 
     private void OnHeadsetReceive(EntityUid uid, HeadsetComponent component, ref RadioReceiveEvent args)
     {
+        // Check if this channel is disabled on the headset
+        if (_disabledChannels.IsChannelDisabled(uid, args.Channel.ID))
+            return;
+
         // TODO: change this when a code refactor is done
         // this is currently done this way because receiving radio messages on an entity otherwise requires that entity
         // to have an ActiveRadioComponent

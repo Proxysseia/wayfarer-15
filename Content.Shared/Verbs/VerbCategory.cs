@@ -103,6 +103,9 @@ namespace Content.Shared.Verbs
             "verb-categories-vore",
             new SpriteSpecifier.Rsi(new("/Textures/Interface/Actions/devour.rsi"), "icon-on"));
 
+        public static readonly VerbCategory RadioChannels =
+            new("verb-categories-radio-channels", "/Textures/Interface/VerbIcons/dot.svg.192dpi.png");
+
         // Interaction verbs system
         public static readonly VerbCategory Interaction = new("verb-categories-interaction", (string?)null);
     }
