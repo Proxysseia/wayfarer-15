@@ -82,16 +82,6 @@
     boardName: wires-board-name-computer
     layoutId: Computer
   # Mono changes start
-    # buffer for power outages
-  - type: Battery
-    maxCharge: 100
-    startingCharge: 100
-  - type: ExaminableBattery
-  - type: BatterySelfRecharger
-  - type: ApcPowerReceiverBattery
-    idleLoad: 5
-    batteryRechargeRate: 250
-    batteryRechargeEfficiency: 0.95
     # ambience
   - type: SpamEmitSoundRequirePower
   - type: SpamEmitSound
