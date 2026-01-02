@@ -41,7 +41,8 @@ public sealed partial class BountyContractUiFragmentListEntry : Control
         if (string.IsNullOrWhiteSpace(contract.Contact))
         {
             BountyContact.Visible = false;
-        } else
+        }
+        else
         {
             BountyContact.Visible = true;
             BountyContact.Text = Loc.GetString("bounty-contracts-ui-list-contact", ("contact", contract.Contact));
@@ -102,7 +103,7 @@ public sealed partial class BountyContractUiFragmentListEntry : Control
         var meta = SharedBountyContractSystem.CategoriesMeta[contract.Category];
         BountyPanel.ModulateSelfOverride = meta.UiColor;
 
-        var category = Loc.GetString("bounty-contracts-ui-list-category", ("category", Loc.GetString(meta.Name))); 
+        var category = Loc.GetString("bounty-contracts-ui-list-category", ("category", Loc.GetString(meta.Name)));
         BountyCategory.Text = category;
     }
 }

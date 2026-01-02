@@ -64,7 +64,7 @@ public sealed partial class BountyContractUiFragmentCreate : Control
 
         // make sure that all targets sorted by names alphabetically
         _targets = targets.OrderBy(target => target.Name).ToList();
-        int idToSelect = 0;
+
         // update names dropdown
         NameSelector.Clear();
         for (var i = 0; i < _targets.Count; i++)

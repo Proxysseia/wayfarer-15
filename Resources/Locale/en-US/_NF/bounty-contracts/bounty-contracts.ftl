@@ -58,7 +58,6 @@ bounty-contract-collection-name-other = Other
 bounty-contract-collection-name-items = Trade
 bounty-contract-collection-name-jobs = Jobs
 bounty-contract-collection-name-services = Service
-bounty-contract-collection-name-other = Other
 
 ## UI - List contracts
 bounty-contracts-ui-list-no-contracts = No contracts posted yet...
