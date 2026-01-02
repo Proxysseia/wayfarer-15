@@ -4,7 +4,8 @@
   - /Audio/Announcements/RoundEnd/apc_destroyed.ogg
   - /Audio/Announcements/RoundEnd/disappointed.ogg
   - /Audio/Announcements/RoundEnd/notevenpaidforthis.ogg
-  - /Audio/_NF/Announcements/RoundEnd/snake_frontierfm.ogg # Frontier
+  - /Audio/Announcements/RoundEnd/roundend_legg.ogg # Wayfarer
+  # - /Audio/_NF/Announcements/RoundEnd/snake_frontierfm.ogg # Frontier
 
 - type: soundCollection
   id: PowerOn
