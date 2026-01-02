@@ -33,5 +33,8 @@ consent-NSFWDescriptions-desc = Toggle this on to see dynamic player description
 consent-Vore-name = Vore
 consent-Vore-desc = Allow yourself to be devoured by other players.
 
+consent-SizeManipulation-name = Allow size manipulation
+consent-SizeManipulation-desc = Turn this on to allow yourself to be grown or shrunk by size manipulation.
+
 consent-Digestion-name = Vore Digestion
 consent-Digestion-desc = Allow yourself to be digested while inside another player. This WILL ROUND-END you!
