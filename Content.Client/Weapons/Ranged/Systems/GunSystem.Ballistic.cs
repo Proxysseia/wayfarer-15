@@ -40,6 +40,7 @@ public sealed partial class GunSystem
         {
             component.UnspawnedCount--;
             ent = Spawn(component.Proto, coordinates);
+            FlagPredicted(ent.Value);
             EnsureShootable(ent.Value);
         }
 

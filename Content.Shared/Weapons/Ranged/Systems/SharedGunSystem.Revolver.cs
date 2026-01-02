@@ -433,6 +433,7 @@ public partial class SharedGunSystem
                 if (!_netManager.IsClient)
                 {
                     var uid = Spawn(component.FillPrototype, mapCoordinates);
+                    FlagPredicted(uid);
 
                     if (TryComp<CartridgeAmmoComponent>(uid, out var cartridge))
                         SetCartridgeSpent(uid, cartridge, !(bool) chamber);
@@ -508,7 +509,7 @@ public partial class SharedGunSystem
                     if (chamber == true)
                     {
                         // Pretend it's always been there.
-                        ent = Spawn(component.FillPrototype, args.Coordinates);
+                        ent = PredictedSpawnAtPosition(component.FillPrototype, args.Coordinates);
 
                         if (!_netManager.IsClient)
                         {
@@ -531,7 +532,7 @@ public partial class SharedGunSystem
 
                     // Mark cartridge as spent and if it's caseless delete from the chamber slot.
                     SetCartridgeSpent(ent.Value, cartridge, true);
-                    var spawned = Spawn(cartridge.Prototype, args.Coordinates);
+                    var spawned = PredictedSpawnAtPosition(cartridge.Prototype, args.Coordinates);
                     args.Ammo.Add((spawned, EnsureComp<AmmoComponent>(spawned)));
 
                     if (cartridge.DeleteOnSpawn)
@@ -576,7 +577,7 @@ public partial class SharedGunSystem
                     EntityUid? ent = component.AmmoSlots[index]!;
                     if (ent == null)
                     {
-                        ent = Spawn(component.FillPrototype, args.Coordinates);
+                        ent = PredictedSpawnAtPosition(component.FillPrototype, args.Coordinates);
 
                         if (!_netManager.IsClient)
                         {
