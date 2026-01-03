@@ -11,6 +11,10 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Random;
 using Robust.Shared.Configuration;
 using Content.Shared.CCVar;
+using Content.Shared.Movement.Components;
+using Content.Shared.Popups;
+using Content.Shared.Verbs;
+using Robust.Shared.Player;
 
 namespace Content.Server.Atmos.EntitySystems
 {
@@ -24,6 +28,7 @@ namespace Content.Server.Atmos.EntitySystems
         [Dependency] private readonly IRobustRandom _random = default!;
         [Dependency] private readonly ThrowingSystem _throwing = default!;
         [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
 
         private const float TimerDelay = 0.5f;
         private float _timer = 0f;
@@ -36,6 +41,7 @@ namespace Content.Server.Atmos.EntitySystems
             SubscribeLocalEvent<GasTankComponent, EntParentChangedMessage>(OnParentChange);
             SubscribeLocalEvent<GasTankComponent, GasAnalyzerScanEvent>(OnAnalyzed);
             SubscribeLocalEvent<GasTankComponent, PriceCalculationEvent>(OnGasTankPrice);
+            SubscribeLocalEvent<GasTankComponent, GetVerbsEvent<Verb>>(AddToggleAlertsVerb);
             Subs.CVar(_cfg, CCVars.AtmosTankFragment, UpdateMaxRange, true);
         }
 
@@ -98,6 +104,7 @@ namespace Content.Server.Atmos.EntitySystems
                 }
 
                 CheckStatus(gasTank);
+                PressureBeep(gasTank);
 
                 if ((comp.IsConnected || comp.IsValveOpen) && _ui.IsUiOpen(uid, SharedGasTankUiKey.Key))
                 {
@@ -220,6 +227,91 @@ namespace Content.Server.Atmos.EntitySystems
             if (component.Integrity < 3)
                 component.Integrity++;
         }
+
+        // COYOTE START: Added pressure beep warning system thing
+        /// <summary>
+        /// Play some kind of beep if the pressure is low enough.
+        /// Runs off a system of thresholds, which are defined in the GasTankComponent.
+        /// once tripped, they need to have the pressure go above the threshold to be reset.
+        /// </summary>
+        private void PressureBeep(Entity<GasTankComponent> gasTank)
+        {
+            var component = gasTank.Comp;
+            if (component.HushAlerts)
+                return; // no alerts if the tank is muted
+            TryComp<ActiveJetpackComponent>(gasTank.Owner, out var jetpack);
+            var amJetting = jetpack is not null;
+            var amInternals = component.User is not null;
+            if (!amJetting && !amInternals)
+                return; // requires to be connected to internals and or be an active jetpack to beep
+            var user = component.User ?? Transform(gasTank.Owner).ParentUid;
+            var currPressure = component.Air.Pressure;
+            const float maxPressure = Atmospherics.OneAtmosphere * 10; // close enough
+            var pressureFraction = currPressure / maxPressure;
+            // now go through the thresholds and see if we need to beep
+            foreach (var threshold in component.AlertThresholds)
+            {
+                // first some lousekeeping, check if the pressure is above the threshold
+                // and untrip the alert if it is
+                if (pressureFraction > threshold.PressurePercentThreshold)
+                {
+                    threshold.Tripped = false;
+                    continue;
+                }
+                if (threshold.Tripped)
+                {
+                    continue; // already tripped, no need to beep again
+                }
+                // if we got here, the pressure is below the threshold and the alert is not tripped
+                threshold.Tripped = true; // trip the alert
+                var audioParams = AudioParams.Default.WithVariation(0.125f).WithVolume(-2f);
+                // play the alert sound, depending on if we are an internals or a jetpack
+                // if we are both, play the internals sound
+                _audioSys.PlayGlobal(
+                    amInternals
+                        ? threshold.AlertSound
+                        : threshold.JetpackAlertSound,
+                    user,
+                    audioParams);
+                break; // only play the first alert that is tripped
+            }
+        }
+
+        private void AddToggleAlertsVerb(EntityUid uid, GasTankComponent component, GetVerbsEvent<Verb> args)
+        {
+            if (args.Hands == null
+                || !args.CanAccess
+                || !args.CanInteract)
+                return;
+
+            var onOff = component.HushAlerts
+                ? Loc.GetString("gas-tank-toggle-alerts-off")
+                : Loc.GetString("gas-tank-toggle-alerts-on");
+            var onOffMsg = component.HushAlerts
+                ? Loc.GetString("gas-tank-toggle-alerts-message-off")
+                : Loc.GetString("gas-tank-toggle-alerts-message-on");
+            var popupText = component.HushAlerts
+                ? Loc.GetString("gas-tank-toggle-alerts-popup-off")
+                : Loc.GetString("gas-tank-toggle-alerts-popup-on");
+            Verb verb = new()
+            {
+                Text = onOff,
+                Act = () =>
+                {
+                    component.HushAlerts = !component.HushAlerts;
+                    _popupSystem.PopupCoordinates(
+                        Loc.GetString(popupText),
+                        Transform(args.User).Coordinates,
+                        Filter.Entities(args.User),
+                        true,
+                        PopupType.MediumCaution);
+
+                },
+                Message = onOffMsg,
+            };
+            args.Verbs.Add(verb);
+        }
+        // COYOTE END
 
         /// <summary>
         /// Returns the gas mixture for the gas analyzer

@@ -117,4 +117,71 @@ public sealed partial class GasTankComponent : Component, IGasMixtureHolder
         {
             Params = AudioParams.Default.WithVolume(-5f),
         };
+
+    // COYOTE START: Added pressure beep warning system thing
+    /// <summary>
+    /// This thing can alert the user when the tank is low on pressure!
+    /// This is a list of those alert threshold classes!
+    /// try to keep them in order of percentage, lowest to highest.
+    /// The first one is the most critical, and the last one is the least critical.
+    /// </summary>
+    public List<GasPressureAlertThreshold> AlertThresholds = new()
+        {
+            new GasPressureAlertThreshold(
+                0.10f,
+                new SoundPathSpecifier("/Audio/_COYOTE/GasWarnings/airwarning_critical.ogg"),
+                new SoundPathSpecifier("/Audio/_COYOTE/GasWarnings/jetpack_critical.ogg")),
+            new GasPressureAlertThreshold(
+                0.20f,
+                new SoundPathSpecifier("/Audio/_COYOTE/GasWarnings/airwarning_verylow.ogg"),
+                new SoundPathSpecifier("/Audio/_COYOTE/GasWarnings/jetpack_verylow.ogg")),
+            new GasPressureAlertThreshold(
+                0.35f,
+                new SoundPathSpecifier("/Audio/_COYOTE/GasWarnings/airwarning_low.ogg"),
+                new SoundPathSpecifier("/Audio/_COYOTE/GasWarnings/jetpack_low.ogg")),
+        };
+
+    /// <summary>
+    /// Turn that damn noise off!
+    /// </summary>
+    public bool HushAlerts = false;
+
+    /// <summary>
+    /// A threshold for the gas tank to be considered "low pressure" for internals.
+    /// </summary>
+    [Serializable]
+    public sealed class GasPressureAlertThreshold
+    {
+        /// <summary>
+        /// The pressure threshold for the alert.
+        /// </summary>
+        public float PressurePercentThreshold = 0.25f;
+
+        /// <summary>
+        /// Has this alert been tripped?
+        /// </summary>
+        public bool Tripped = false;
+
+        /// <summary>
+        /// The sound to play when the alert is tripped.
+        /// </summary>
+        public SoundSpecifier AlertSound = new SoundPathSpecifier("/Audio/_COYOTE/GasWarnings/airwarning_low.ogg");
+
+        /// <summary>
+        /// The sound to play when the alert is tripped,
+        /// And is an active jetpack, and is not internals.
+        /// yeah pretty specific but, ya know how it is.
+        /// </summary>
+        public SoundSpecifier JetpackAlertSound = new SoundPathSpecifier("/Audio/_COYOTE/GasWarnings/jetpack_low.ogg");
+
+        public GasPressureAlertThreshold(float pressurePercentThreshold,
+            SoundSpecifier alertSound,
+            SoundSpecifier jetpackAlertSound)
+        {
+            PressurePercentThreshold = pressurePercentThreshold;
+            AlertSound = alertSound;
+            JetpackAlertSound = jetpackAlertSound;
+        }
+    }
+    // COYOTE END
 }
