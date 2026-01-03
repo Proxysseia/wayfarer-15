@@ -261,3 +261,10 @@ Entries:
   id: 6522
   time: '2026-01-03T07:29:15.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/121
+- author: Eillyrea
+  changes:
+    - type: Tweak
+      message: Longer Nanochat messages
+  id: 6523
+  time: '2026-01-03T23:00:46.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/122
