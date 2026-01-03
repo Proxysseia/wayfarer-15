@@ -410,7 +410,8 @@ public sealed class VoreSystem : EntitySystem
 
     private void OnGibContents(EntityUid uid, VoreComponent component, ref BeingGibbedEvent args)
     {
-        _containerSystem.EmptyContainer(component.Stomach);
+        if (component.Stomach != null)
+            _containerSystem.EmptyContainer(component.Stomach);
     }
 
     public override void Update(float frameTime)
