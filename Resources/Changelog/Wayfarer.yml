@@ -277,3 +277,12 @@ Entries:
   id: 6524
   time: '2026-01-04T06:41:30.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/118
+- author: drraccoony
+  changes:
+    - type: Add
+      message: >-
+        Private messaging system. Used via /private USER MESSAGE and /reply
+        MESSAGE
+  id: 6525
+  time: '2026-01-04T06:45:58.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/120
