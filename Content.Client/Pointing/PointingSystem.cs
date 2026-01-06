@@ -24,7 +24,43 @@ public sealed partial class PointingSystem : SharedPointingSystem
         SubscribeLocalEvent<RoguePointingArrowComponent, ComponentStartup>(OnRogueArrowStartup);
         SubscribeLocalEvent<PointingArrowComponent, ComponentHandleState>(HandleCompState);
 
+        // Subscribe to CVar changes for real-time updates
+        _cfg.OnValueChanged(CCVars.PointerHighlight, _ => UpdateAllPointers());
+        _cfg.OnValueChanged(CCVars.ChatHighlightsColor, _ => UpdateAllPointers());
+
         InitializeVisualizer();
+    }
+
+    private void UpdateAllPointers()
+    {
+        var query = EntityQueryEnumerator<PointingArrowComponent, SpriteComponent>();
+        while (query.MoveNext(out var uid, out _, out var sprite))
+        {
+            UpdatePointerAppearance(uid, sprite);
+        }
+    }
+
+    private void UpdatePointerAppearance(EntityUid uid, SpriteComponent? sprite = null)
+    {
+        if (!TryComp<SpriteComponent>(uid, out sprite))
+            return;
+
+        var useHighlight = _cfg.GetCVar(CCVars.PointerHighlight);
+        
+        if (useHighlight)
+        {
+            // Use blank sprite and apply highlight color
+            sprite.LayerSetState(0, "pointing_blank");
+            var highlightColor = Color.FromHex(_cfg.GetCVar(CCVars.ChatHighlightsColor));
+            sprite.Color = highlightColor;
+        }
+        else
+        {
+            // Use default pointing sprite with configured or white color
+            sprite.LayerSetState(0, "pointing");
+            var color = Color.FromHex(_cfg.GetCVar(CCVars.PointingArrowColor));
+            sprite.Color = color;
+        }
     }
 
     private void AddPointingVerb(GetVerbsEvent<Verb> args)
@@ -59,12 +95,13 @@ public sealed partial class PointingSystem : SharedPointingSystem
 
     private void OnArrowStartup(EntityUid uid, PointingArrowComponent component, ComponentStartup args)
     {
-        if (TryComp<SpriteComponent>(uid, out var sprite))
-            _sprite.SetDrawDepth((uid, sprite), (int)DrawDepth.Overlays);
+        if (!TryComp<SpriteComponent>(uid, out var sprite))
+            return;
 
-        // Apply the user-configured color
-        var color = Color.FromHex(_cfg.GetCVar(CCVars.PointingArrowColor));
-        sprite.Color = color;
+        _sprite.SetDrawDepth((uid, sprite), (int)DrawDepth.Overlays);
+
+        // Apply initial appearance
+        UpdatePointerAppearance(uid, sprite);
 
         BeginPointAnimation(uid, component.StartPosition, component.Offset, component.AnimationKey);
     }
