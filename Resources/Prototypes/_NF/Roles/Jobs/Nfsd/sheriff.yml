@@ -60,6 +60,8 @@
     - DoorRemoteNfsd
     - BaseSecurityUplinkRadioSheriff
     - RubberStampSheriff
+    - ShipVoucherNfsdBailiff
+    - FrontierUplinkCoin5
 
 - type: chameleonOutfit
   id: SheriffChameleonOutfit

@@ -45,12 +45,10 @@
     - NFSpeedLoaderPistol45Rubber
     - ForensicPad
     - ForensicScanner
-    - FrontierUplinkCoin10
+    - BaseSecurityUplinkRadioOfficer
+    - LogProbeCartridge
     - RubberStampDetective
     - ContrabandForensicsModule
-  cartridges:
-  - LogProbeCartridge
-
 - type: chameleonOutfit
   id: NFDetectiveChameleonOutfit
   job: NFDetective

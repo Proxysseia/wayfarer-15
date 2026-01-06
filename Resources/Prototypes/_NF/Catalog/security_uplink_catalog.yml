@@ -46,6 +46,9 @@
       whitelist:
         tags:
           - SecurityUplink
+    - !type:BuyerJobCondition
+      whitelist:
+        - Brigmedic
 
 - type: listing
   id: UplinkSecurityHardsuitWarden
@@ -131,7 +134,7 @@
   productEntity: ClothingOuterHardsuitNfsdExperimental
   icon: { sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_experimental.rsi, state: icon }
   cost:
-    FrontierUplinkCoin: 20
+    FrontierUplinkCoin: 50
   categories:
     - UplinkSecurityHardsuits
   conditions:
@@ -139,9 +142,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Sheriff
 
 #region weapons
 - type: listing
@@ -223,11 +223,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityLecter
@@ -244,11 +239,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityVulcan
@@ -265,11 +255,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityLaserCarbine
@@ -286,11 +271,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityLaserCannon
@@ -307,9 +287,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityDisablerSMG
@@ -326,11 +303,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityWT550
@@ -347,10 +319,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityEnergyGun
@@ -367,10 +335,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityEmpRpg
@@ -387,9 +351,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Sheriff
 
 #region utililty
 - type: listing
@@ -493,9 +454,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityThrusterKit
@@ -512,11 +470,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 #region magazines
 - type: listing
@@ -550,11 +503,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityMagazineRifle30Overpressure
@@ -571,11 +519,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityMagazineSubMachineGunTopMounted35Overpressure
@@ -592,10 +535,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityPistolMagazineRubber
@@ -628,11 +567,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecurity30RifleMagazineRubber
@@ -649,11 +583,6 @@
       whitelist:
         tags:
         - SecurityUplink
-    - !type:BuyerJobCondition
-        whitelist:
-          - Bailiff
-          - SeniorOfficer
-          - Sheriff
 
 - type: listing
   id: UplinkSecurityHypo
@@ -710,10 +639,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Brigmedic
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityInspector
@@ -778,11 +703,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityHammer
@@ -836,11 +756,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecuritySwat
@@ -857,11 +772,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecuritySpeedloader
@@ -974,11 +884,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecuritySmokeGrenadeBox
@@ -1043,11 +948,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityHoverbikeNfsdFlatpack
@@ -1064,11 +964,6 @@
       whitelist:
         tags:
           - SecurityUplink
-    - !type:BuyerJobCondition
-      whitelist:
-        - Bailiff
-        - SeniorOfficer
-        - Sheriff
 
 - type: listing
   id: UplinkSecurityLethalArmory
@@ -1161,6 +1056,22 @@
           - SecurityUplink
 
 - type: listing
+  id: UplinkSecurityEmpGrenadeAmmoMags
+  name:  uplink-security-emp-ammo-mags-name
+  description: uplink-security-emp-ammo-mags-desc
+  productEntity: NFMagazineGrenadeEMP
+  icon: { sprite: Objects/Weapons/Guns/Ammunition/Magazine/Grenade/grenade_cartridge.rsi, state: icon}
+  cost:
+    FrontierUplinkCoin: 2
+  categories:
+    - UplinkSecurityAmmo
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - SecurityUplink
+
+- type: listing
   id: UplinkSecurityTrackingDartsAmmo
   name:  uplink-security-trackingdart-ammo-name
   description: uplink-security-trackingdart-ammo-desc
@@ -1210,3 +1121,5 @@
     - !type:BuyerJobCondition
       whitelist:
         - Sheriff
+        - Bailiff
+        - SeniorOfficer

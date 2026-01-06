@@ -39,13 +39,11 @@
     pocket1: NFWeaponPistolUniversalNfsdLessLethal
   storage:
     back:
+    - EncryptionKeyMedical
     - Flash
     - NFMagazineHighCapacityPistol35Overpressure
     - NFMagazineHighCapacityPistol35Rubber
-    - FrontierUplinkCoin10
-  encryptionKeys:
-  - EncryptionKeyMedical
-
+    - BaseSecurityUplinkRadioOfficer
 - type: chameleonOutfit
   id: BrigmedicChameleonOutfit
   job: Brigmedic
