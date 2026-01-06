@@ -337,3 +337,10 @@ Entries:
   id: 6530
   time: '2026-01-06T22:09:04.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/139
+- author: RobynIsBlue
+  changes:
+    - type: Tweak
+      message: Some vulpkanin mask and hat sprites
+  id: 6531
+  time: '2026-01-06T23:46:11.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/138
