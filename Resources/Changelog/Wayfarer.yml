@@ -351,3 +351,10 @@ Entries:
   id: 6532
   time: '2026-01-07T06:45:16.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/151
+- author: drraccoony
+  changes:
+    - type: Tweak
+      message: Default Cyro Time 3 days
+  id: 6533
+  time: '2026-01-07T06:58:34.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/152
