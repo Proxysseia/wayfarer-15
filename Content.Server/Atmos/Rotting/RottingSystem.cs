@@ -47,17 +47,20 @@ public sealed class RottingSystem : SharedRottingSystem
     }
 
     /// <summary>
-    /// Is anything speeding up the decay?
-    /// e.g. buried in a grave
+    /// Is anything speeding up or slowing down the decay?
+    /// e.g. buried in a grave (speeds up), or in cryostorage (slows down)
     /// TODO: hot temperatures increase rot?
     /// </summary>
     /// <returns></returns>
     private float GetRotRate(EntityUid uid)
     {
-        if (_container.TryGetContainingContainer((uid, null, null), out var container) &&
-            TryComp<ProRottingContainerComponent>(container.Owner, out var rotContainer))
+        if (_container.TryGetContainingContainer((uid, null, null), out var container))
         {
-            return rotContainer.DecayModifier;
+            if (TryComp<ProRottingContainerComponent>(container.Owner, out var rotContainer))
+                return rotContainer.DecayModifier;
+            
+            if (TryComp<SlowDecayContainerComponent>(container.Owner, out var slowContainer))
+                return slowContainer.DecayModifier;
         }
 
         return 1f;

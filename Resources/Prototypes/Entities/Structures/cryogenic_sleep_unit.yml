@@ -43,6 +43,8 @@
   - type: ContainerContainer
     containers:
       storage: !type:ContainerSlot
+  - type: SlowDecayContainer # Entities inside cryogenic sleep units decay 85% slower (hunger, food spoilage, etc.)
+    decayModifier: 0.15
   - type: Appearance
   - type: GenericVisualizer
     visuals:

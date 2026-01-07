@@ -44,6 +44,8 @@
       beakerSlot: !type:ContainerSlot {}
       machine_board: !type:Container
       machine_parts: !type:Container
+  - type: SlowDecayContainer # Entities inside cryo pods decay 85% slower (hunger, food spoilage, etc.)
+    decayModifier: 0.15
   - type: AtmosDevice
   - type: Appearance
   - type: Machine

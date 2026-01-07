@@ -29,6 +29,8 @@
   - type: ContainerContainer
     containers:
       body_container: !type:ContainerSlot
+  - type: SlowDecayContainer # Entities inside cryo sleep chambers decay 85% slower (hunger, food spoilage, etc.)
+    decayModifier: 0.15
 
 # If cryopods get deleted, this one is considered as a safe fallback.
 - type: entity

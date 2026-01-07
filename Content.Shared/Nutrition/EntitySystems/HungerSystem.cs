@@ -1,11 +1,13 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Alert;
+using Content.Shared.Atmos.Rotting;
 using Content.Shared.Damage;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Rejuvenate;
 using Content.Shared.StatusIcon;
+using Robust.Shared.Containers;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -20,6 +22,7 @@ public sealed class HungerSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly AlertsSystem _alerts = default!;
+    [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
@@ -74,8 +77,24 @@ public sealed class HungerSystem : EntitySystem
     public float GetHunger(HungerComponent component)
     {
         var dt = _timing.CurTime - component.LastAuthoritativeHungerChangeTime;
-        var value = component.LastAuthoritativeHungerValue - (float)dt.TotalSeconds * component.ActualDecayRate;
+        var decayRate = component.ActualDecayRate * GetHungerDecayModifier(component.Owner);
+        var value = component.LastAuthoritativeHungerValue - (float)dt.TotalSeconds * decayRate;
         return ClampHungerWithinThresholds(component, value);
+    }
+
+    /// <summary>
+    /// Gets the hunger decay modifier for an entity based on its container.
+    /// Returns a multiplier where 1.0 is normal speed, 0.15 is 85% slower (for cryostorage).
+    /// </summary>
+    private float GetHungerDecayModifier(EntityUid uid)
+    {
+        if (_container.TryGetContainingContainer((uid, null, null), out var container) &&
+            TryComp<SlowDecayContainerComponent>(container.Owner, out var slowContainer))
+        {
+            return slowContainer.DecayModifier;
+        }
+
+        return 1f;
     }
 
     /// <summary>
