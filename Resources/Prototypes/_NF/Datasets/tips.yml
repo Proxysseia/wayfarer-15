@@ -1,5 +1,5 @@
 - type: localizedDataset
-  id: NFTips
+  id: WFTips
   values:
-    prefix: nf-tips-dataset-
+    prefix: wf-tips-dataset-
     count: 124
