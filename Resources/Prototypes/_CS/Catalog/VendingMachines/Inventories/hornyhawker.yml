@@ -11,6 +11,12 @@
     ClothingNeckCollarPink: 25
     ClothingNeckBellCollar: 25
     ClothingNeckShockCollar: 25
+    # Advanced Collars
+    ClothingNeckAdvancedCollarBlack: 25
+    ClothingNeckAdvancedCollarBlue: 25
+    ClothingNeckAdvancedCollarPink: 25
+    AdvCollarModuleBondage: 25
+    AdvCollarModuleShock: 25
     # Restraints
     # FuzzycuffsBlack: 25
     # FuzzycuffsBlue: 25

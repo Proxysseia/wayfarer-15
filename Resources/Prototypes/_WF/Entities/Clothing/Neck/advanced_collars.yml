@@ -1,0 +1,119 @@
+# Advanced Collar and Modules
+
+- type: entity
+  parent: ClothingNeckCollarBase
+  id: ClothingNeckAdvancedCollarBase
+  name: advanced collar
+  description: A modular collar that can have various functional modules installed.
+  abstract: true
+  components:
+    - type: Sprite
+      sprite: Floof/Clothing/Neck/collar_black.rsi
+    - type: Clothing
+      sprite: Floof/Clothing/Neck/collar_black.rsi
+    - type: AdvancedCollar
+      maxModules: 3
+    - type: ContainerContainer
+      containers:
+        collar_module_container: !type:Container
+
+- type: entity
+  parent: ClothingNeckAdvancedCollarBase
+  id: ClothingNeckAdvancedCollarBlack
+  name: advanced black collar
+  description: A modular black collar that can have various functional modules installed.
+  components:
+    - type: Sprite
+      sprite: Floof/Clothing/Neck/collar_black.rsi
+    - type: Clothing
+      sprite: Floof/Clothing/Neck/collar_black.rsi
+
+- type: entity
+  parent: ClothingNeckAdvancedCollarBase
+  id: ClothingNeckAdvancedCollarBlue
+  name: advanced blue collar
+  description: A modular blue collar that can have various functional modules installed.
+  components:
+    - type: Sprite
+      sprite: Floof/Clothing/Neck/collar_blue.rsi
+    - type: Clothing
+      sprite: Floof/Clothing/Neck/collar_blue.rsi
+
+- type: entity
+  parent: ClothingNeckAdvancedCollarBase
+  id: ClothingNeckAdvancedCollarPink
+  name: advanced pink collar
+  description: A modular pink collar that can have various functional modules installed.
+  components:
+    - type: Sprite
+      sprite: Floof/Clothing/Neck/collar_pink.rsi
+    - type: Clothing
+      sprite: Floof/Clothing/Neck/collar_pink.rsi
+
+# Collar Modules
+
+- type: entity
+  parent: BaseItem
+  id: BaseAdvCollarModule
+  name: collar module
+  description: A module that can be installed into an advanced collar.
+  abstract: true
+  components:
+    - type: Sprite
+      sprite: Objects/Misc/module.rsi
+      state: ssd
+    - type: Item
+      size: Tiny
+    - type: AdvancedCollarModule
+
+- type: entity
+  parent: BaseAdvCollarModule
+  id: AdvCollarModuleBondage
+  name: Collar bondage module
+  description: A module that prevents the wearer from removing the collar themselves.
+  components:
+    - type: Sprite
+      sprite: Objects/Misc/module.rsi
+      state: ssd
+      # layers:
+      #   - state: ssd
+      #     color: "#FF0000"
+    - type: AdvancedCollarModule
+      componentToAdd: SelfUnremovableClothing
+      moduleDescription: Prevents self-removal
+
+# Shock Module - electrocutes wearer when remotely triggered
+
+- type: entity
+  parent: BaseAdvCollarModule
+  id: AdvCollarModuleShock
+  name: Collar shock module
+  description: A module that can remotely shock the wearer via wireless signal trigger.
+  components:
+    - type: Sprite
+      sprite: Objects/Misc/module.rsi
+      state: card_mini
+      # layers:
+      #   - state: ssd
+      #     color: "#FFD700"
+    - type: AdvancedCollarModule
+      componentsToAdd:
+        - ShockOnTrigger
+        - TriggerOnSignal
+        - DeviceNetwork
+        - WirelessNetworkConnection
+        - DeviceLinkSink
+      moduleDescription: Shocks wearer on wireless signal
+    # Store the component configurations that will be added to the collar
+    - type: ShockOnTrigger
+      damage: 1
+      duration: 2.5
+      cooldown: 3.5
+    - type: DeviceNetwork
+      deviceNetId: Wireless
+      receiveFrequencyId: BasicDevice
+    - type: WirelessNetworkConnection
+      range: 200
+    - type: DeviceLinkSink
+      ports:
+        - Trigger
