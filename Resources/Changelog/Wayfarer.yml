@@ -448,3 +448,12 @@ Entries:
   id: 6541
   time: '2026-01-07T19:08:29.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/159
+- author: drraccoony
+  changes:
+    - type: Tweak
+      message: Lobby background
+    - type: Tweak
+      message: Lobby music
+  id: 6542
+  time: '2026-01-10T06:39:48.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/188
