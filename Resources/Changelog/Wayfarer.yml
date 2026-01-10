@@ -434,3 +434,10 @@ Entries:
   id: 6539
   time: '2026-01-07T16:27:58.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/155
+- author: RobynIsBlue
+  changes:
+    - type: Tweak
+      message: Changed Frontier Station decal
+  id: 6540
+  time: '2026-01-07T17:18:21.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/154
