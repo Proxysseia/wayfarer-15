@@ -427,3 +427,10 @@ Entries:
   id: 6538
   time: '2026-01-07T16:26:25.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/157
+- author: Eillyrea
+  changes:
+    - type: Add
+      message: NFSD eSword, an advanced stunbaton
+  id: 6539
+  time: '2026-01-07T16:27:58.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/155
