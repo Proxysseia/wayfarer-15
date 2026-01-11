@@ -558,27 +558,18 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
 
     private void UpdateUI(Entity<NanoChatCartridgeComponent> ent, EntityUid loader)
     {
-        List<NanoChatRecipient>? contacts;
-        if (_station.GetOwningStation(loader) is { } station)
+        // Always populate contacts list, no station or telecomms required
+        var contacts = new List<NanoChatRecipient>();
+
+        var query = AllEntityQuery<NanoChatCardComponent, IdCardComponent>();
+        while (query.MoveNext(out var entityId, out var nanoChatCard, out var idCardComponent))
         {
-            ent.Comp.Station = station;
-
-            contacts = [];
-
-            var query = AllEntityQuery<NanoChatCardComponent, IdCardComponent>();
-            while (query.MoveNext(out var entityId, out var nanoChatCard, out var idCardComponent))
+            if (nanoChatCard.ListNumber && nanoChatCard.Number is uint nanoChatNumber && idCardComponent.FullName is string fullName)
             {
-                if (nanoChatCard.ListNumber && nanoChatCard.Number is uint nanoChatNumber && idCardComponent.FullName is string fullName && _station.GetOwningStation(entityId) == station)
-                {
-                    contacts.Add(new NanoChatRecipient(nanoChatNumber, fullName));
-                }
+                contacts.Add(new NanoChatRecipient(nanoChatNumber, fullName));
             }
-            contacts.Sort((contactA, contactB) => string.CompareOrdinal(contactA.Name, contactB.Name));
         }
-        else
-        {
-            contacts = null;
-        }
+        contacts.Sort((contactA, contactB) => string.CompareOrdinal(contactA.Name, contactB.Name));
 
         var recipients = new Dictionary<uint, NanoChatRecipient>();
         var messages = new Dictionary<uint, List<NanoChatMessage>>();
