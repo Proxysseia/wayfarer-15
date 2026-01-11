@@ -371,20 +371,20 @@ public sealed class NanoChatCartridgeSystem : EntitySystem
                     continue;
 
                 // Check if devices are on same station/map
-                var recipientStation = _station.GetOwningStation(receiverUid);
-                var senderStation = _station.GetOwningStation(sender);
+                // var recipientStation = _station.GetOwningStation(receiverUid);
+                // var senderStation = _station.GetOwningStation(sender);
 
-                // Both entities must be on a station
-                if (recipientStation == null || senderStation == null)
-                    continue;
+                // // Both entities must be on a station
+                // if (recipientStation == null || senderStation == null)
+                //     continue;
 
-                // Must be on same map/station unless long range allowed
-                if (!channel.LongRange && recipientStation != senderStation)
-                    continue;
+                // // Must be on same map/station unless long range allowed
+                // if (!channel.LongRange && recipientStation != senderStation)
+                //     continue;
 
-                // Needs telecomms
-                if (!HasActiveServer(senderStation.Value) || !HasActiveServer(recipientStation.Value))
-                    continue;
+                // // Needs telecomms
+                // if (!HasActiveServer(senderStation.Value) || !HasActiveServer(recipientStation.Value))
+                //     continue;
 
                 // Check if recipient can receive
                 var receiveAttemptEv = new RadioReceiveAttemptEvent(channel, sender, receiverUid);
