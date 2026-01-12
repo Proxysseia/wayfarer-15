@@ -374,9 +374,9 @@ public sealed class VoreSystem : EntitySystem
         }
 
         if (TryComp<InventoryComponent>(prey, out var inventoryComponent)
-            && _inventorySystem.TryGetSlots(uid, out var slots)
+            && _inventorySystem.TryGetSlots(prey, out var slots)
             && TryComp<MindContainerComponent>(prey, out var mindContainer)
-            && mindContainer.HasHadMind) // no more digesting wizards to get their panties
+            && mindContainer.HasMind) // no more digesting wizards to get their panties
         {
             foreach (var slot in slots)
             {
