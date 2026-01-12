@@ -523,3 +523,12 @@ Entries:
   id: 6548
   time: '2026-01-12T00:35:00.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/197
+- author: drraccoony
+  changes:
+    - type: Add
+      message: Map blips for PDA
+    - type: Add
+      message: Crit passengers blink red
+  id: 6549
+  time: '2026-01-12T01:22:46.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/198
