@@ -6,10 +6,10 @@
   components:
     - type: Sprite
       sprite: Objects/Devices/cartridge.rsi
-      state: cart-crew
+      state: cart-nav
     - type: Icon
       sprite: Objects/Devices/cartridge.rsi
-      state: cart-crew
+      state: cart-nav
     - type: Cartridge
       programName: blip-cartridge-program-name
       icon:
