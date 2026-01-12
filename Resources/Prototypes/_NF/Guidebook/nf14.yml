@@ -28,7 +28,7 @@
   text: "/ServerInfo/_NF/Guidebook/SafetyDepositBox.xml"
   priority: 0
 
-  - type: guideEntry
+- type: guideEntry
   id: ShiftsAndPersistence
   name: guide-entry-shifts-and-persistence
   text: "/ServerInfo/_NF/Guidebook/ShiftsAndPersistence.xml"
