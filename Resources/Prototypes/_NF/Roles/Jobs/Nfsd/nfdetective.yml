@@ -3,19 +3,11 @@
   name: job-name-nf-detective
   description: job-description-nf-detective
   playTimeTracker: JobDetective
+  whitelisted: true
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 43200 # 12 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 21600 # 6 hours
-  alternateRequirementSets:
-    longerPlaytimeLessSec:
-    - !type:OverallPlaytimeRequirement
-      time: 360000 # 100 hours
-    - !type:RoleTimeRequirement
-      role: JobSecurityOfficer
-      time: 10800 # 3 hours as deputy
+      time: 43200 # 12 hours
   startingGear: NFDetectiveGear
   icon: JobIconNFDetective
   supervisors: job-supervisors-bailiff
