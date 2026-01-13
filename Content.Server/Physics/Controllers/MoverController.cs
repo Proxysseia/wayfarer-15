@@ -2,6 +2,9 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Systems;
+using Content.Server._WF.Shuttles.Components;
+using Content.Server._WF.Shuttles.Systems;
+using Content.Server.Chat.Managers;
 using Content.Shared.Friction;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems;
@@ -25,6 +28,8 @@ public sealed class MoverController : SharedMoverController
 
     [Dependency] private readonly ThrusterSystem _thruster = default!;
     [Dependency] private readonly SharedTransformSystem _xformSystem = default!;
+    [Dependency] private readonly AutopilotSystem _autopilot = default!;
+    [Dependency] private readonly IChatManager _chatManager = default!;
 
     private Dictionary<EntityUid, (ShuttleComponent, List<(EntityUid, PilotComponent, InputMoverComponent, TransformComponent)>)> _shuttlePilots = new();
 
@@ -158,6 +163,24 @@ public sealed class MoverController : SharedMoverController
     {
         if (!TryComp<PilotComponent>(uid, out var pilot) || pilot.Console == null)
             return;
+
+        // Disengage autopilot if player gives any navigational input
+        if (state && pilot.Console != null)
+        {
+            if (TryComp<TransformComponent>(pilot.Console.Value, out var consoleXform) && 
+                consoleXform.GridUid != null &&
+                TryComp<AutopilotComponent>(consoleXform.GridUid.Value, out var autopilot) &&
+                autopilot.Enabled)
+            {
+                _autopilot.ToggleAutopilot(consoleXform.GridUid.Value);
+                
+                // Send chat message to all players on the shuttle
+                if (TryComp<ActorComponent>(uid, out var actor))
+                {
+                    _chatManager.DispatchServerMessage(actor.PlayerSession, "Autopilot disengaged due to manual input");
+                }
+            }
+        }
 
         ResetSubtick(pilot);
 

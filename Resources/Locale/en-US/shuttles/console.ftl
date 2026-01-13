@@ -59,3 +59,12 @@ shuttle-console-docks-label = Docks
 
 shuttle-console-undock-fail = Undocking failed
 shuttle-console-dock-fail = Docking failed
+
+# AUTOPILOT
+shuttle-console-autopilot-enable = Enable Autopilot
+shuttle-console-autopilot-disable = Disable Autopilot
+shuttle-console-autopilot-enabled = Autopilot enabled
+shuttle-console-autopilot-disabled = Autopilot disabled
+shuttle-console-autopilot-no-target = No radar target selected
+shuttle-console-autopilot-invalid-target = Invalid autopilot target
+shuttle-console-autopilot-failed = Failed to enable autopilot
