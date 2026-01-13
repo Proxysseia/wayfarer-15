@@ -35,6 +35,8 @@
     spawned:
     - id: FoodMeatHuman
       amount: 5
+  - type: Hunger
+  - type: Thirst
   - type: MeleeWeapon
     soundHit:
       collection: Punch
