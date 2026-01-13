@@ -4,6 +4,7 @@ using Content.Shared._NF.Bank.Components;
 using Content.Shared._NF.Cargo.BUI;
 using Content.Shared.Cargo;
 using Content.Shared.Cargo.Events;
+using Content.Shared.Database;
 using Content.Shared.GameTicking;
 using Content.Shared.Mobs;
 using Robust.Shared.Audio;
@@ -263,6 +264,9 @@ public sealed partial class NFCargoSystem
             price *= priceMod.Mod;
         }
         price += noMultiplierPrice;
+
+        // Log the cargo sale to admin logs
+        _adminLogger.Add(LogType.CargoSale, LogImpact.Low, $"Cargo sale by {ToPrettyString(args.Actor):user} for {price:F0} credits");
 
         var stackPrototype = _proto.Index(ent.Comp.CashType);
         var stackUid = _stack.Spawn((int)price, stackPrototype, args.Actor.ToCoordinates());

@@ -1,10 +1,12 @@
 using System.Linq;
 using Content.Server._NF.Bank;
+using Content.Server.Administration.Logs;
 using Content.Server.Chat.Managers;
 using Content.Server.Chat.Systems;
 using Content.Server.Popups;
 using Content.Shared._NF.Bank.Components;
 using Content.Shared.Chat;
+using Content.Shared.Database;
 using Content.Shared.GameTicking;
 using Content.Shared.Popups;
 using Robust.Shared.Network;
@@ -24,6 +26,7 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
     [Dependency] private readonly ChatSystem _chatsys = null!;
     [Dependency] private readonly IChatManager _chatManager = null!;
     [Dependency] private readonly ISharedPlayerManager _playerManager = null!;
+    [Dependency] private readonly IAdminLogManager _adminLogger = null!;
 
     private const float GoodlenSpeaking = 75;
     private const float GoodlenWhispering = 75;
@@ -286,6 +289,8 @@ public sealed class RoleplayIncentiveSystem : EntitySystem
             Log.Warning($"Failed to deposit {payAmount} into bank account of entity {uid}!");
             return;
         }
+        // log the payout to admin logs
+        _adminLogger.Add(LogType.RPIPayward, LogImpact.Low, $"Roleplay Incentive Payward for {ToPrettyString(uid):user}: {payAmount} credits");
         if (payAmount <= 100)
         {
             // if the pay amount is less than or equal to 100, we don't need to tell them

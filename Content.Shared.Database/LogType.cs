@@ -515,6 +515,16 @@ public enum LogType
     /// Shuttle info was changed.
     /// </summary>
     ShuttleInfoChanged = 208,
+
+    /// <summary>
+    /// Roleplay Incentive Payward was paid out.
+    /// </summary>
+    RPIPayward = 209,
+
+    /// <summary>
+    /// Cargo Sale Computer was used to sell items.
+    /// </summary>
+    CargoSale = 210,
     #endregion Frontier Values
     // Frontier End
 
