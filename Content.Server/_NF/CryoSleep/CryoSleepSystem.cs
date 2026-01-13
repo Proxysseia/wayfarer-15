@@ -417,23 +417,19 @@ public sealed partial class CryoSleepSystem : EntitySystem
         if (!TryComp<CryoSleepComponent>(cryopod, out var cryo))
             return;
 
-        var deleteEntity = false;
         NetUserId? id = null;
         if (_mind.TryGetMind(bodyId, out var mindEntity, out var mind) && mind.CurrentEntity is { Valid: true } body)
         {
             var argMind = mind;
             var ev = new CryosleepBeforeMindRemovedEvent(cryopod, argMind?.UserId);
             RaiseLocalEvent(bodyId, ev, true);
-            deleteEntity = ev.DeleteEntity;
 
             // Note: must update stored bodies before ghosting to ensure cryo state is accurate.
+            // Always store bodies - never delete on cryo entry
             id = mind.UserId;
             if (id != null)
             {
-                if (deleteEntity)
-                    _storedBodies.Remove(id.Value);
-                else
-                    _storedBodies[id.Value] = new StoredBody() { Body = body, Cryopod = cryopod };
+                _storedBodies[id.Value] = new StoredBody() { Body = body, Cryopod = cryopod };
             }
 
             _ghost.OnGhostAttempt(mindEntity, false, true, mind: mind);
@@ -450,22 +446,15 @@ public sealed partial class CryoSleepSystem : EntitySystem
         if (cryo.CryosleepDoAfter != null && _doAfter.GetStatus(cryo.CryosleepDoAfter) == DoAfterStatus.Running)
             _doAfter.Cancel(cryo.CryosleepDoAfter);
 
-        if (deleteEntity)
+        // Start a timer. When it ends, the body needs to be deleted.
+        Timer.Spawn(TimeSpan.FromSeconds(_configurationManager.GetCVar(NFCCVars.CryoExpirationTime)), () =>
         {
-            QueueDel(bodyId);
-        }
-        else
-        {
-            // Start a timer. When it ends, the body needs to be deleted.
-            Timer.Spawn(TimeSpan.FromSeconds(_configurationManager.GetCVar(NFCCVars.CryoExpirationTime)), () =>
-            {
-                if (id != null)
-                    ResetCryosleepState(id.Value);
+            if (id != null)
+                ResetCryosleepState(id.Value);
 
-                if (!Deleted(bodyId) && Transform(bodyId).ParentUid == _storageMap)
-                    QueueDel(bodyId);
-            });
-        }
+            if (!Deleted(bodyId) && Transform(bodyId).ParentUid == _storageMap)
+                QueueDel(bodyId);
+        });
     }
 
     /// <param name="body">If not null, will not eject if the stored body is different from that parameter.</param>

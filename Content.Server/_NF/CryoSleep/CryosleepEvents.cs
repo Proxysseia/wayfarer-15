@@ -36,6 +36,5 @@ public sealed class CryosleepWakeUpEvent : BaseCryosleepEvent
 /// </summary>
 public sealed class CryosleepBeforeMindRemovedEvent : BaseCryosleepEvent
 {
-    public bool DeleteEntity;
     public CryosleepBeforeMindRemovedEvent(EntityUid cryopod, NetUserId? user) : base(cryopod, user) { }
 }

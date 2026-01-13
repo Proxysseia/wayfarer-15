@@ -10,6 +10,7 @@ using Content.Shared.Roles;
 using Robust.Server.Player;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
 namespace Content.Server._NF.Roles.Systems;
 
@@ -75,8 +76,14 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
         if (ent.Comp.Job == null || !ent.Comp.Active || !JobShouldBeReopened(ent.Comp.Job.Value))
             return;
 
-        OpenJob(ent);
-        ev.DeleteEntity = true;
+        // Don't delete the entity - preserve it for potential return
+        // Delay job reopening by 1 hour (3600 seconds)
+        Timer.Spawn(TimeSpan.FromHours(1), () =>
+        {
+            // Only open the job if the player hasn't returned and entity still exists
+            if (!Deleted(ent) && !ent.Comp.Active)
+                OpenJob(ent);
+        });
     }
 
     public void OpenJob(Entity<JobTrackingComponent> ent)
