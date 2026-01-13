@@ -432,6 +432,19 @@ namespace Content.Server.GameTicking
             SpawnPlayers(readyPlayers, readyPlayerProfiles, force);
 
             _roundStartDateTime = DateTime.UtcNow;
+            
+            // Automatically set shift end time if configured
+            var defaultShiftEndTime = _cfg.GetCVar(CCVars.GameShiftEndTime);
+            if (defaultShiftEndTime > 0)
+            {
+                ShiftEndTime = _gameTiming.RealTime + TimeSpan.FromHours(defaultShiftEndTime);
+                _sawmill.Info($"Shift end time automatically set to {defaultShiftEndTime} hours from now (server real time: {ShiftEndTime}).");
+            }
+            else
+            {
+                ShiftEndTime = null;
+            }
+            
             RunLevel = GameRunLevel.InRound;
 
             RoundStartTimeSpan = _gameTiming.CurTime;

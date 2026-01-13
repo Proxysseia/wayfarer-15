@@ -75,6 +75,19 @@ namespace Content.Server.GameTicking
 
         private bool _randomizeCharacters;
 
+        /// <summary>
+        /// The server real time when the shift should end, if set by an admin.
+        /// Uses RealTime instead of CurTime to avoid drift issues in long shifts.
+        /// </summary>
+        [ViewVariables]
+        public TimeSpan? ShiftEndTime { get; set; }
+
+        /// <summary>
+        /// Whether the emergency shuttle should be automatically called when 30 minutes remain in the shift.
+        /// </summary>
+        [ViewVariables]
+        public bool ShiftEndAutoCallEnabled { get; set; } = true;
+
         public override void Initialize()
         {
             base.Initialize();

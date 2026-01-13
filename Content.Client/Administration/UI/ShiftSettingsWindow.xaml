@@ -1,0 +1,40 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+              Title="{Loc administration-shift-settings-window-title}"
+              MinSize="500 300">
+    <BoxContainer Orientation="Vertical" SeparationOverride="8" Margin="8">
+        <!-- Shift End Time Settings -->
+        <Label Text="{Loc administration-shift-settings-duration-label}" StyleClasses="LabelBig" />
+
+        <!-- Time Mode Selection -->
+        <BoxContainer Orientation="Vertical" SeparationOverride="4">
+            <BoxContainer Orientation="Horizontal" SeparationOverride="8">
+                <CheckBox Name="HoursFromNowCheckbox" ToggleMode="True" Pressed="True" />
+                <Label Text="{Loc administration-shift-settings-hours-from-now}" />
+            </BoxContainer>
+            <BoxContainer Orientation="Horizontal" SeparationOverride="8">
+                <CheckBox Name="HoursFromRoundStartCheckbox" ToggleMode="True" />
+                <Label Text="{Loc administration-shift-settings-hours-from-round-start}" />
+            </BoxContainer>
+        </BoxContainer>
+
+        <BoxContainer Orientation="Horizontal" SeparationOverride="4">
+            <Label Text="{Loc administration-shift-settings-hours-label}" MinSize="150 0" />
+            <LineEdit Name="ShiftEndTimeInput"
+                      HorizontalExpand="True"
+                      PlaceHolder="{Loc administration-shift-settings-duration-placeholder}" />
+            <Button Name="SetShiftEndTimeButton" Text="{Loc administration-shift-settings-set-button}" MinSize="80 0" />
+            <Button Name="ClearShiftEndTimeButton" Text="{Loc administration-shift-settings-clear-button}" MinSize="80 0" />
+        </BoxContainer>
+
+        <BoxContainer Orientation="Horizontal" SeparationOverride="4">
+            <Label Text="{Loc administration-shift-settings-auto-call-label}" MinSize="150 0" />
+            <CheckBox Name="ShiftEndAutoCallCheckbox" />
+            <Label Name="ShiftEndAutoCallStatus" Text="{Loc administration-shift-settings-auto-call-enabled}" />
+        </BoxContainer>
+
+        <BoxContainer Orientation="Horizontal" SeparationOverride="4">
+            <Label Text="{Loc administration-shift-settings-current-shift-end}" MinSize="150 0" />
+            <Label Name="CurrentShiftEndLabel" Text="{Loc administration-shift-settings-no-shift-end}" />
+        </BoxContainer>
+    </BoxContainer>
+</DefaultWindow>

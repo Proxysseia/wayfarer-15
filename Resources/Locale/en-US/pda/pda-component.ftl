@@ -35,6 +35,8 @@ comp-pda-ui-station-alert-level-instructions = Instructions: [color=white]{ $ins
 
 comp-pda-ui-station-time = Shift duration: [color=white]{ $time }[/color]
 
+comp-pda-ui-shift-end-time = Time Left In Shift: [color=white]{ $time }[/color]
+
 comp-pda-ui-eject-id-button = Eject ID
 
 comp-pda-ui-eject-pen-button = Eject Pen

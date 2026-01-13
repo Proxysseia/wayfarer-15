@@ -60,6 +60,7 @@ namespace Content.Server.RoundEnd
 
         public TimeSpan AutoCallStartTime;
         private bool _autoCalledBefore = false;
+        private bool _shiftEndAutoCalledBefore = false;
 
         public override void Initialize()
         {
@@ -91,6 +92,7 @@ namespace Content.Server.RoundEnd
             ExpectedCountdownEnd = null;
             SetAutoCallTime();
             _autoCalledBefore = false;
+            _shiftEndAutoCalledBefore = false;
             RaiseLocalEvent(RoundEndSystemChangedEvent.Default);
         }
 
@@ -354,7 +356,30 @@ namespace Content.Server.RoundEnd
 
         public override void Update(float frameTime)
         {
-            // Check if we should auto-call.
+            // Check if we should auto-call based on shift end time (30 minutes remaining)
+            if (_gameTicker.ShiftEndAutoCallEnabled &&
+                _gameTicker.ShiftEndTime.HasValue &&
+                !_shiftEndAutoCalledBefore &&
+                !_shuttle.EmergencyShuttleArrived &&
+                ExpectedCountdownEnd is null)
+            {
+                var timeRemaining = _gameTicker.ShiftEndTime.Value - _gameTiming.RealTime;
+                if (timeRemaining <= TimeSpan.FromMinutes(30) && timeRemaining > TimeSpan.Zero)
+                {
+                    // Send announcement about shift ending
+                    _chatSystem.DispatchGlobalAnnouncement(
+                        Loc.GetString("round-end-system-shift-ending-announcement"),
+                        Loc.GetString("round-end-system-shuttle-sender-announcement"),
+                        false,
+                        colorOverride: Color.Orange);
+
+                    // Call shuttle with 30 minute ETA to align with shift end time
+                    RequestRoundEnd(TimeSpan.FromMinutes(30), null, false, "round-end-system-shuttle-auto-called-announcement");
+                    _shiftEndAutoCalledBefore = true;
+                }
+            }
+
+            // Check if we should auto-call based on round time.
             int mins = _autoCalledBefore ? _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallExtensionTime)
                                         : _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallTime);
             if (mins != 0 && _gameTiming.CurTime - AutoCallStartTime > TimeSpan.FromMinutes(mins))

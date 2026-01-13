@@ -19,6 +19,7 @@ namespace Content.Shared.PDA
         public string? Address;
         public int Balance; // Frontier
         public string? OwnedShipName; // Frontier
+        public TimeSpan? ShiftEndTime; // Duration remaining until shift ends (client will add to its own RealTime)
 
         public PdaUpdateState(
             List<NetEntity> programs,
@@ -33,7 +34,8 @@ namespace Content.Shared.PDA
             string? stationName,
             bool hasUplink = false,
             bool canPlayMusic = false,
-            string? address = null)
+            string? address = null,
+            TimeSpan? shiftEndTime = null)
             : base(programs, activeUI)
         {
             FlashlightEnabled = flashlightEnabled;
@@ -47,6 +49,7 @@ namespace Content.Shared.PDA
             Address = address;
             Balance = balance; // Frontier
             OwnedShipName = ownedShipName; // Frontier
+            ShiftEndTime = shiftEndTime;
         }
     }
 

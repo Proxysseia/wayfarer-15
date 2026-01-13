@@ -1,0 +1,54 @@
+<Document>
+  # Shifts and Persistence
+
+## Shift Duration
+
+Shifts in the Coyote Sector typically last around [color=#33bbff]3 days[/color] of real time.
+This extended duration allows for deep space exploration, complex trading operations, and long-haul cargo runs.
+
+You can check how long the current shift has been running by looking at your [color=#44cc00]PDA[/color].
+The shift duration is displayed in the format [color=#33bbff]D:HH:MM:SS[/color] (Days:Hours:Minutes:Seconds).
+
+Keep in mind as the shift progresses through the days, this time may start to be inaccurate.
+
+  <Box>
+    <GuideEntityEmbed Entity="PassengerPDA"/>
+  </Box>
+
+For example:
+- [color=#ffcc00]0:02:30:45[/color] means 0 days, 2 hours, 30 minutes, and 45 seconds
+- [color=#ffcc00]2:14:05:12[/color] means 2 days, 14 hours, 5 minutes, and 12 seconds
+
+You'll may also see [color=#ff6666]"Time Left In Shift:"[/color] displayed beneath the shift duration.
+
+
+## What Persists Between Shifts?
+
+### Persistent (Saves)
+- [color=#44cc00]Bank Account Balance[/color] - Any money deposited at an ATM
+
+### Non-Persistent (Does Not Save)
+- [color=#ff6666]Ships and Shuttles[/color] - All vessels are removed at round end
+- [color=#ff6666]Items and Equipment[/color] - Everything you're carrying or storing
+- [color=#ff6666]Station Modifications[/color] - Any construction or changes to stations
+- [color=#ff6666]Physical Possessions[/color] - Cargo, materials, weapons, tools, etc.
+
+## Important Tips
+
+[color=#ffaa00]Make sure to deposit your earnings![/color]
+Before ending your shift or logging out, visit a [color=#44cc00]Galactic Bank ATM[/color] on Nash Station to deposit any cash you've earned.
+Money not deposited will be lost when the shift ends or if you leave your character.
+
+[color=#ffaa00]Sell your ship before shift ends![/color]
+Since ships don't persist between shifts, consider selling your ship back at the [color=#cccc00]Shipyard Console[/color] before the shift ends to recover some of your investment.
+
+[color=#ffaa00]Plan for long sessions![/color]
+With shifts lasting around 3 days, you may log out and rejoin multiple times during a single shift.
+Your character will remain in the world when you disconnect, so find a safe place to rest (like cryo chambers) if you need to take a break.
+
+  <Box>
+    <GuideEntityEmbed Entity="ComputerBankATM"/>
+    <GuideEntityEmbed Entity="MachineCryoSleepPod"/>
+  </Box>
+
+</Document>
