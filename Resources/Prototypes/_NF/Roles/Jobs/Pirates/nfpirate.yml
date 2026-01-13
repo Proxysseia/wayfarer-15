@@ -3,12 +3,7 @@
   name: job-name-nf-pirate
   description: job-description-nf-pirate
   playTimeTracker: JobPirate
-  requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 86400 # 24 hours
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 10800 # 3 hrs
+  whitelisted: true
   startingGear: NFPirateGear
   alwaysUseSpawner: true
   hideConsoleVisibility: true
