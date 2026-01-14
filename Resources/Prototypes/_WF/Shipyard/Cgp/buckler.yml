@@ -1,0 +1,33 @@
+- type: vessel
+  id: Buckler
+  parent: BaseVessel
+  name: CGP Buckler
+  description: A CGP Fighter, designed for short term missions and disabling targets as part of a larger fleet
+  price: 94150
+  category: Small
+  group: Security
+  access: Security
+  shuttlePath: /Maps/_WF/Shuttles/Cgp/buckler.yml
+  guidebookPage: Null
+  class:
+  - Pursuit
+  - Fighter
+  engine:
+  - APU
+
+- type: gameMap
+  id: Buckler
+  mapName: 'CGP Buckler'
+  mapPath: /Maps/_WF/Shuttles/Cgp/buckler.yml
+  minPlayers: 0
+  stations:
+    Buckler:
+      stationProto: StandardFrontierVessel
+      components:
+      - type: StationNameSetup
+        mapNameTemplate: 'Buckler {1}'
+        nameGenerator:
+          !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs: {}
