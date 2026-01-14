@@ -117,3 +117,25 @@
     - type: DeviceLinkSink
       ports:
         - Trigger
+
+# Jingling Module - makes jingle sounds when the wearer moves
+
+- type: entity
+  parent: BaseAdvCollarModule
+  id: AdvCollarModuleJingling
+  name: Collar bell module
+  description: A module that makes the collar jingle when moving, just like a bell collar.
+  components:
+    - type: Sprite
+      sprite: Objects/Misc/module.rsi
+      state: cpu
+      # layers:
+      #   - state: ssd
+      #     color: "#FFA500"
+    - type: AdvancedCollarModule
+      componentToAdd: EmitsSoundOnMove
+      moduleDescription: Jingles when moving
+    # Store the component configuration that will be added to the collar
+    - type: EmitsSoundOnMove
+      soundCollection:
+        collection: FootstepJester
