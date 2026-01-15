@@ -641,3 +641,10 @@ Entries:
   id: 6562
   time: '2026-01-15T01:27:10.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/233
+- author: Eillyrea
+  changes:
+    - type: Add
+      message: CGP - Qauata (Brigmedic Ship)
+  id: 6563
+  time: '2026-01-15T03:07:12.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/228
