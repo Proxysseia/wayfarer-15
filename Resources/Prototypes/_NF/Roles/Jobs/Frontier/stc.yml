@@ -5,12 +5,7 @@
   playTimeTracker: JobStc
   startingGear: StcGear
   alwaysUseSpawner: true
-  requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 72000 # 20 hrs
-    - !type:RoleTimeRequirement
-      role: JobSecurityGuard
-      time: 10800 # 3 hrs as security guard
+  whitelisted: true
   canBeAntag: false
   icon: "JobIconStc"
   supervisors: job-supervisors-sr

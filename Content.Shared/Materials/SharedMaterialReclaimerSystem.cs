@@ -112,7 +112,7 @@ public abstract class SharedMaterialReclaimerSystem : EntitySystem
         if (user != null)
         {
             _adminLog.Add(LogType.Action,
-                LogImpact.High,
+                LogImpact.Medium, // pls stop spamming me :c
                 $"{ToPrettyString(user.Value):player} destroyed {ToPrettyString(item)} in the material reclaimer, {ToPrettyString(uid)}");
         }
 

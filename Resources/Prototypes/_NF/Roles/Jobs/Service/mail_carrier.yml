@@ -5,9 +5,6 @@
   startingGear: MailCarrierGear
   alwaysUseSpawner: true
   playTimeTracker: JobMailCarrier
-  requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 10800
   icon: "JobIconMailCarrier"
   supervisors: job-supervisors-sr
   weight: 90 # Frontier

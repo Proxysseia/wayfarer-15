@@ -3,16 +3,13 @@
   name: job-name-pal
   description: job-description-public-affairs-liaison
   playTimeTracker: JobPublicAffairsLiaison
+  whitelisted: true
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 43200 # 12 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 21600 # 6 hours
-  alternateRequirementSets:
-    longerPlaytimeLessSec:
-    - !type:OverallPlaytimeRequirement
-      time: 360000 # 100 hours
+      time: 43200 # 12 hours
   startingGear: PublicAffairGear
   icon: "JobIconPublicAffairsLiaison"
   supervisors: job-supervisors-cadet

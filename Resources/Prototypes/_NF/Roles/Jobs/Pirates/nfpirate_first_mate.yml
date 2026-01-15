@@ -6,9 +6,6 @@
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 129600 # 36 hours
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 10800 # 3 hours
   whitelisted: true
   startingGear: NFPirateFirstMateGear
   alwaysUseSpawner: true

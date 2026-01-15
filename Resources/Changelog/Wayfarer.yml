@@ -555,3 +555,46 @@ Entries:
   id: 6552
   time: '2026-01-13T17:38:21.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/219
+- author: drraccoony
+  changes:
+    - type: Tweak
+      message: Changed cyro so your characters wont get deleted, and jobs reopen.
+  id: 6553
+  time: '2026-01-13T18:19:06.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/218
+- author: drraccoony
+  changes:
+    - type: Add
+      message: Shift time remaining in PDA
+  id: 6554
+  time: '2026-01-13T18:20:04.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/204
+- author: Eillyrea
+  changes:
+    - type: Add
+      message: NFSD Whitelist
+    - type: Add
+      message: Pirate Whitelist
+    - type: Add
+      message: STC Whitelist
+    - type: Remove
+      message: 'Playtime requirements from: Valet, Mail Courier, Janitor'
+    - type: Fix
+      message: Feroxi Guidebook
+  id: 6555
+  time: '2026-01-13T21:16:46.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/220
+- author: Eillyrea
+  changes:
+    - type: Add
+      message: CGP - Kite
+  id: 6556
+  time: '2026-01-14T07:22:22.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/224
+- author: RoY7x
+  changes:
+    - type: Tweak
+      message: Missing Resomi male head markings have returned.
+  id: 6557
+  time: '2026-01-14T09:00:55.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/226
