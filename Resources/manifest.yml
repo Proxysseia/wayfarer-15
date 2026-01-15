@@ -1,5 +1,6 @@
-defaultWindowTitle: Wayfarer
-windowIconSet: /Textures/_NF/Logo/icon
-splashLogo: /Textures/_NF/Logo/logo.png
+defaultWindowTitle: Wayfarer # Wayfarer: Wayfarer!
+windowIconSet: /Textures/_WF/Logo/icon # Wayfarer: change to _WF
+splashLogo: /Textures/_WF/Logo/logo.png # Wayfarer: change to _WF
+
 
 # PJB PLEASE
