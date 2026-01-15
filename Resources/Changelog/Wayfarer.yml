@@ -616,3 +616,10 @@ Entries:
   id: 6559
   time: '2026-01-15T00:26:41.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/227
+- author: Eillyrea
+  changes:
+    - type: Add
+      message: CGP - Buckler (Small Fighter Ship)
+  id: 6560
+  time: '2026-01-15T00:31:38.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/229
