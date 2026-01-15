@@ -523,7 +523,7 @@ public sealed class DeadDropSystem : EntitySystem
         dropHint.AppendLine();
         dropHint.AppendLine(Loc.GetString("deaddrop-hint-posttext"));
         dropHint.AppendLine();
-        dropHint.AppendLine(Loc.GetString("deaddrop-hint-next-drop", ("time", hintNextDrop.ToString("hh\\:mm") + ":00")));
+        dropHint.AppendLine(Loc.GetString("deaddrop-hint-next-drop", ("time", $"{hintNextDrop.Days}d {hintNextDrop.Hours:D2}h {hintNextDrop.Minutes:D2}m")));
 
         var paper = EntityManager.SpawnEntity(component.HintPaper, Transform(uid).Coordinates);
 
@@ -675,7 +675,7 @@ public sealed class DeadDropSystem : EntitySystem
             if (EntityManager.TryGetComponent<DeadDropComponent>(hintTuple.Item2, out var deadDrop) && deadDrop.NextDrop != null)
             {
                 var dropTimeWithError = deadDrop.NextDrop.Value - _ticker.RoundStartTimeSpan + TimeSpan.FromSeconds(_random.Next(-MaxHintTimeErrorSeconds, MaxHintTimeErrorSeconds));
-                timeString = Loc.GetString("dead-drop-time-known", ("time", dropTimeWithError.ToString("hh\\:mm") + ":00"));
+                timeString = Loc.GetString("dead-drop-time-known", ("time", $"{dropTimeWithError.Days}d {dropTimeWithError.Hours:D2}h {dropTimeWithError.Minutes:D2}m"));
             }
             else
             {
