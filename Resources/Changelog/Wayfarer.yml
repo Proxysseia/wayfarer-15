@@ -703,3 +703,10 @@ Entries:
   id: 6570
   time: '2026-01-16T21:16:33.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/250
+- author: Eillyrea
+  changes:
+    - type: Add
+      message: PDAs have a date on them
+  id: 6571
+  time: '2026-01-16T21:16:46.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/251
