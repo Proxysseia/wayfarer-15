@@ -253,7 +253,9 @@ public sealed partial class ChatSystem : SharedChatSystem
         }
 
         // Wayfarer start: Minimum lightness for contrast
-        var nameHashColor = ColorExtensions.ConsistentRandomSeededColorFromString(entityName, 40);
+        // 149 as a minimum lightness should provide at least a 4.5:1 contrast ratio
+        // The minimum contrast required by WCAG (Level AA) for text
+        var nameHashColor = ColorExtensions.ConsistentRandomSeededColorFromString(entityName, 149);
         var nameColorString = nameHashColor.ToHex();
         // Wayfarer end
 
