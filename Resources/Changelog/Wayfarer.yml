@@ -717,3 +717,12 @@ Entries:
   id: 6572
   time: '2026-01-16T21:18:43.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/249
+- author: Eillyrea
+  changes:
+    - type: Add
+      message: Rename your ships without need of an SR
+    - type: Remove
+      message: Removed fun from SRs
+  id: 6573
+  time: '2026-01-17T22:44:10.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/257
