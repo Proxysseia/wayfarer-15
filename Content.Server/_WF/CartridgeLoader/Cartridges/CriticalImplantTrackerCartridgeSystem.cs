@@ -1,16 +1,19 @@
 using Content.Server.CartridgeLoader;
+using Content.Server.Explosion.Components;
 using Content.Server.Ghost.Components;
 using Content.Server.Station.Systems;
 using Content.Shared._WF.CartridgeLoader.Cartridges;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.Ghost;
 using Content.Shared.Humanoid;
+using Content.Shared.Implants.Components;
 using Content.Shared.Inventory;
 using Content.Shared.Mind;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.PDA;
+using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 
 namespace Content.Server._WF.CartridgeLoader.Cartridges;
@@ -24,6 +27,7 @@ public sealed class CriticalImplantTrackerCartridgeSystem : EntitySystem
     [Dependency] private readonly InventorySystem _inventorySystem = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;
     [Dependency] private readonly SharedMindSystem _mindSystem = default!;
+    [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
 
     public override void Initialize()
     {
@@ -120,7 +124,25 @@ public sealed class CriticalImplantTrackerCartridgeSystem : EntitySystem
                 }
             }
 
-            // Add all critical/dead patients
+            // Check if the entity has a medAlert beacon that is enabled
+            var hasActiveBeacon = false;
+            if (_containerSystem.TryGetContainer(mobUid, ImplanterComponent.ImplantSlotId, out var implantContainer))
+            {
+                foreach (var implant in implantContainer.ContainedEntities)
+                {
+                    if (TryComp<TriggerOnMobstateChangeComponent>(implant, out var trigger) && trigger.Enabled)
+                    {
+                        hasActiveBeacon = true;
+                        break;
+                    }
+                }
+            }
+
+            // Only add patients who have an active medAlert beacon
+            if (!hasActiveBeacon)
+                continue;
+
+            // Add all critical/dead patients with active beacons
             patients.Add(new CriticalPatientData(name, coordinates, species, timeSinceCrit, isDead));
         }
 
