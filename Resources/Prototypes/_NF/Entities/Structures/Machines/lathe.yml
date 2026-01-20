@@ -261,8 +261,8 @@
 - type: entity
   id: NfsdTechFab
   parent: [ NFBlueprintReceiverBase, SecurityTechFab ]
-  name: NFSD techfab
-  description: Prints equipment for use by NFSD.
+  name: CGP techfab
+  description: Prints equipment for use by CGP.
   components:
   - type: Sprite
     sprite: _NF/Structures/Machines/techfab.rsi
