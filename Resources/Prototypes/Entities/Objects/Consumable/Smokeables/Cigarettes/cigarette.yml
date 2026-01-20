@@ -82,7 +82,7 @@
           - ReagentId: Nicotine
             Quantity: 10
           - ReagentId: Ichor
-            Quantity: 10
+            Quantity: 5
 
 - type: entity
   id: CigaretteOmnizine
@@ -96,8 +96,8 @@
         reagents:
           - ReagentId: Nicotine
             Quantity: 10
-          - ReagentId: Ichor
-            Quantity: 5
+          - ReagentId: Omnizine
+            Quantity: 10
 
 - type: entity
   id: CigaretteIron
