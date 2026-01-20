@@ -807,3 +807,10 @@ Entries:
   id: 6582
   time: '2026-01-20T19:07:09.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/271
+- author: Eillyrea
+  changes:
+    - type: Tweak
+      message: SMGs shoot faster, feel a little less weak compared to rifles
+  id: 6583
+  time: '2026-01-20T20:23:32.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/286
