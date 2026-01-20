@@ -763,3 +763,12 @@ Entries:
   id: 6576
   time: '2026-01-18T02:24:42.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/260
+- author: drraccoony
+  changes:
+    - type: Fix
+      message: Fixed Clothing Lock Module locking all slots
+    - type: Fix
+      message: Fixed Clothing Lock Module not being in HornyHawker
+  id: 6577
+  time: '2026-01-20T18:02:16.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/270
