@@ -779,3 +779,10 @@ Entries:
   id: 6578
   time: '2026-01-20T18:05:22.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/274
+- author: Eillyrea
+  changes:
+    - type: Add
+      message: Tape to Medbags
+  id: 6579
+  time: '2026-01-20T18:06:51.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/275
