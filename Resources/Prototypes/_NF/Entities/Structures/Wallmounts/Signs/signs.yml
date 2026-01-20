@@ -101,7 +101,7 @@
   parent: NFBaseSign
   id: SignNfsdArmoury
   name: armory sign
-  description: A sign that marks the area beyond as an CGP armory.
+  description: A sign that marks the area beyond as a CGP armory.
   components:
   - type: Sprite
     state: armoury
