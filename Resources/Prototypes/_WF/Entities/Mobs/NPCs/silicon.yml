@@ -5,8 +5,8 @@
   description: An automated light maintenance bot. Wanders the station replacing broken or missing light bulbs.
   components:
     - type: Sprite
-      sprite: Mobs/Silicon/Bots/cleanbot.rsi
-      state: cleanbot
+      sprite: _WF/Mobs/Silicon/Bots/LightBot.rsi
+      state: lightbot
     - type: Construction
       graph: LightBot
       node: bot
