@@ -864,3 +864,10 @@ Entries:
   id: 6589
   time: '2026-01-21T02:51:45.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/292
+- author: drraccoony
+  changes:
+    - type: Fix
+      message: Fixed shuttle "cruise" to have no friction/speed decay
+  id: 6590
+  time: '2026-01-21T03:08:46.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/265
