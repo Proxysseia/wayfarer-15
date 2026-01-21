@@ -17,7 +17,9 @@
 - type: rcd
   id: WallMining
   category: WallsAndFlooring
-  sprite: /Textures/Structures/Walls/mining.rsi/full.png
+  sprite:
+    sprite: /Textures/Structures/Walls/mining.rsi
+    state: full
   mode: ConstructObject
   prototype: WallMining
   cost: 6
@@ -29,7 +31,9 @@
 - type: rcd
   id: WallMiningDiagonal
   category: WallsAndFlooring
-  sprite: /Textures/Structures/Walls/mining_diagonal.rsi/state0.png
+  sprite:
+    sprite: /Textures/Structures/Walls/mining_diagonal.rsi
+    state: state0
   mode: ConstructObject
   prototype: WallMiningDiagonal
   cost: 4
@@ -42,7 +46,9 @@
 - type: rcd
   id: WallPlastitanium
   category: WallsAndFlooring
-  sprite: /Textures/Structures/Walls/plastitanium.rsi/full.png
+  sprite:
+    sprite: /Textures/Structures/Walls/plastitanium.rsi
+    state: full
   mode: ConstructObject
   prototype: WallPlastitanium
   cost: 8
@@ -54,7 +60,9 @@
 - type: rcd
   id: WallPlastitaniumDiagonal
   category: WallsAndFlooring
-  sprite: /Textures/Structures/Walls/plastitanium_diagonal.rsi/state0.png
+  sprite:
+    sprite: /Textures/Structures/Walls/plastitanium_diagonal.rsi
+    state: state0
   mode: ConstructObject
   prototype: WallPlastitaniumDiagonal
   cost: 6
@@ -68,7 +76,9 @@
 - type: rcd
   id: MiningWindow
   category: WindowsAndGrilles
-  sprite: /Textures/Structures/Windows/mining.rsi/full.png
+  sprite:
+    sprite: /Textures/Structures/Windows/mining.rsi
+    state: full
   mode: ConstructObject
   prototype: MiningWindow
   cost: 4
@@ -82,7 +92,9 @@
 - type: rcd
   id: MiningWindowDiagonal
   category: WindowsAndGrilles
-  sprite: /Textures/Structures/Windows/mining_diagonal.rsi/state0.png
+  sprite:
+    sprite: /Textures/Structures/Windows/mining_diagonal.rsi
+    state: state0
   mode: ConstructObject
   prototype: MiningWindowDiagonal
   cost: 2
@@ -97,7 +109,9 @@
 - type: rcd
   id: PlastitaniumWindow
   category: WindowsAndGrilles
-  sprite: /Textures/Structures/Windows/plastitanium_window.rsi/full.png
+  sprite:
+    sprite: /Textures/Structures/Windows/plastitanium_window.rsi
+    state: full
   mode: ConstructObject
   prototype: PlastitaniumWindow
   cost: 6
@@ -111,7 +125,9 @@
 - type: rcd
   id: PlastitaniumWindowDiagonal
   category: WindowsAndGrilles
-  sprite: /Textures/Structures/Windows/plastitanium_window_diagonal.rsi/state0.png
+  sprite:
+    sprite: /Textures/Structures/Windows/plastitanium_window_diagonal.rsi
+    state: state0
   mode: ConstructObject
   prototype: PlastitaniumWindowDiagonal
   cost: 3
