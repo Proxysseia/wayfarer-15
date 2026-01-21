@@ -193,7 +193,7 @@ public sealed class AutopilotSystem : EntitySystem
             return shuttle.BaseMaxLinearVelocity;
 
         var vel = Vector2.Normalize(velocity);
-        
+
         var horizIndex = vel.X > 0 ? 1 : 3; // east else west
         var vertIndex = vel.Y > 0 ? 2 : 0; // north else south
 
@@ -717,6 +717,8 @@ public sealed class AutopilotSystem : EntitySystem
         }
     }
 
+    private const float DampenDampingStrength = 0.25f;
+
     /// <summary>
     /// Disable autopilot
     /// </summary>
@@ -732,6 +734,27 @@ public sealed class AutopilotSystem : EntitySystem
         autopilot.Enabled = false;
         autopilot.TargetCoordinates = null;
         SendShuttleMessage(shuttleUid, "Autopilot: Disabled");
+    }
+
+    /// <summary>
+    /// Disable autopilot and set the shuttle to Drive (Dampen) mode.
+    /// Used when a pilot takes manual control.
+    /// </summary>
+    public void DisableAutopilotToDriveMode(EntityUid shuttleUid)
+    {
+        DisableAutopilot(shuttleUid);
+
+        if (!TryComp<ShuttleComponent>(shuttleUid, out var shuttle))
+            return;
+
+        // Set to Drive (Dampen) mode
+        shuttle.BodyModifier = DampenDampingStrength;
+        if (shuttle.DampingModifier != 0)
+            shuttle.DampingModifier = shuttle.BodyModifier;
+        shuttle.EBrakeActive = false;
+
+        // Refresh shuttle consoles so pilots see the mode change
+        _console.RefreshShuttleConsoles(shuttleUid);
     }
 
     /// <summary>
