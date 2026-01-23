@@ -899,3 +899,16 @@ Entries:
   id: 6594
   time: '2026-01-23T14:34:01.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/314
+- author: Eillyrea
+  changes:
+    - type: Tweak
+      message: >-
+        Lights less likely to break passively, more likely to break during solar
+        flares
+    - type: Tweak
+      message: >-
+        Shielded lights 100x more effective at protecting lights during solar
+        flares
+  id: 6595
+  time: '2026-01-23T17:13:31.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/345
