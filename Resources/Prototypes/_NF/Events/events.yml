@@ -67,7 +67,7 @@
     maxDuration: 240
   - type: SolarFlareRule
     allChannels: true
-    lightBreakChancePerSecond: 0.0002
+    lightBreakChancePerSecond: 0.0008
     doorToggleChancePerSecond: 0.001
 
 - type: entity
