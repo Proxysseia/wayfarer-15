@@ -1,0 +1,32 @@
+- type: vessel
+  id: Parma
+  parent: BaseVessel
+  name: CGP Parma
+  description: A CGP Prisoner Transport ship, small and not built for anything beyond moving people from A to B
+  price: 12750
+  category: Small
+  group: Security
+  access: Security
+  shuttlePath: /Maps/_WF/Shuttles/Cgp/parma.yml
+  guidebookPage: Null
+  class:
+  - Patrol
+  engine:
+  - APU
+
+- type: gameMap
+  id: Parma
+  mapName: 'CGP Parma'
+  mapPath: /Maps/_WF/Shuttles/Cgp/parma.yml
+  minPlayers: 0
+  stations:
+    Parma:
+      stationProto: StandardFrontierVessel
+      components:
+      - type: StationNameSetup
+        mapNameTemplate: 'Parma {1}'
+        nameGenerator:
+          !type:NanotrasenNameGenerator
+          prefixCreator: '14'
+      - type: StationJobs
+        availableJobs: {}
