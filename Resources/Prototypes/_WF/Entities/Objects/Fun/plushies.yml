@@ -1,5 +1,5 @@
 - type: entity
-  parent: BasePlushie
+  parent: PlushieLizard
   id: WehfarerPlushie #Weh!
   name: wehfarer plushie
   description: An adorable stuffed toy that resembles a Wehfarer, the synth mascot to dusk station. Made by Concordia Command as a token endurace and care. "Welcome to the Nebulan Coast!"
@@ -9,51 +9,3 @@
     state: wehfarericon
   - type: Item
     sprite: _WF/Objects/Fun/Plushies/lizard.rsi
-  - type: EmitSoundOnUse
-    sound: &PlushieLizardSound
-      path: /Audio/Items/Toys/weh.ogg
-  #    params: # Frontier
-  #      volume: -5 # Frontier
-  - type: EmitSoundOnLand
-    sound: *PlushieLizardSound
-  - type: EmitSoundOnActivate
-    sound: *PlushieLizardSound
-  - type: EmitSoundOnTrigger
-    sound: *PlushieLizardSound
-  - type: EmitSoundOnCollide
-    sound: *PlushieLizardSound
-  - type: Food
-    requiresSpecialDigestion: true
-    useSound: *PlushieLizardSound
-  - type: MeleeWeapon
-    wideAnimationRotation: 180
-    soundHit: *PlushieLizardSound
-  - type: Extractable
-    juiceSolution:
-      reagents:
-      - ReagentId: JuiceThatMakesYouWeh
-        Quantity: 30
-  - type: SolutionContainerManager
-    solutions:
-      food:
-        maxVol: 20
-        reagents:
-        - ReagentId: Fiber
-          Quantity: 10
-        - ReagentId: JuiceThatMakesYouWeh
-          Quantity: 10
-  - type: Clothing
-    quickEquip: false
-    sprite: _WF/Objects/Fun/Plushies/lizard.rsi
-    slots:
-    - HEAD
-  - type: Speech
-    speechVerb: Reptilian # for pais (In the secret stash)
-  - type: FoodSequenceElement
-    entries:
-      CottonBurger: LizardPlushie
-  - type: Tag
-    tags:
-    - Payload
-    - ClothMade
-    - PlushieLizard
