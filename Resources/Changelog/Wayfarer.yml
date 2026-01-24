@@ -912,3 +912,17 @@ Entries:
   id: 6595
   time: '2026-01-23T17:13:31.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/345
+- author: RoY7x
+  changes:
+    - type: Add
+      message: >-
+        Added Wehfarer as a plushie! He now is available in the cuddly critter
+        vend, and you can occasionally find him in the plushie crates out in
+        salvage wrecks!
+    - type: Tweak
+      message: >-
+        Used the plushie version that was voted on by you in our server poll.
+        Sprite done by Rellu
+  id: 6596
+  time: '2026-01-24T02:51:04.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/349
