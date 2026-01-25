@@ -1492,6 +1492,9 @@
   id: WeaponShotgunKammerer
 
 - type: Tag
+  id: WeaponShotgunEnforcer
+
+- type: Tag
   id: WeldingMask
 
 - type: Tag
