@@ -33,7 +33,7 @@
       types:
         Piercing: 1
   - type: StaminaDamageOnCollide
-    damage: 10.5 # ~10 hits to stun sounds reasonable, less effective than pistol because rifle round is smaller in size
+    damage: 10 # 10 hits to stun WF reduction stamina rebalance
 
 #region .20 rifle
 - type: entity
