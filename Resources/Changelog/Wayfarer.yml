@@ -970,3 +970,13 @@ Entries:
   id: 6602
   time: '2026-01-25T18:20:07.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/356
+- author: RoY7x
+  changes:
+    - type: Fix
+      message: >-
+        Forgot to add Wehfarer to loadout groups. Now you can spawn with your
+        own Wehfarer and don't have to rely on the cuddly critter vend to have
+        him!
+  id: 6603
+  time: '2026-01-26T01:53:09.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/358
