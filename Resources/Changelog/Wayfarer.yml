@@ -994,3 +994,16 @@ Entries:
   id: 6605
   time: '2026-01-26T13:59:36.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/363
+- author: VVersengt
+  changes:
+    - type: Add
+      message: Resomi cooking recipes.
+    - type: Add
+      message: Buckets of fried chicken.
+    - type: Add
+      message: Paper buckets to Happy Honk vendors and service lathes.
+    - type: Tweak
+      message: Changed Resomi butchering return from raw lizard to raw Resomi
+  id: 6606
+  time: '2026-01-26T23:03:26.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/364
