@@ -987,3 +987,10 @@ Entries:
   id: 6604
   time: '2026-01-26T13:57:05.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/366
+- author: VVersengt
+  changes:
+    - type: Add
+      message: Added corner lattices
+  id: 6605
+  time: '2026-01-26T13:59:36.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/363
