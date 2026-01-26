@@ -1007,3 +1007,10 @@ Entries:
   id: 6606
   time: '2026-01-26T23:03:26.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/364
+- author: Eillyrea
+  changes:
+    - type: Add
+      message: .60 rounds now AP
+  id: 6607
+  time: '2026-01-26T23:06:57.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/354
