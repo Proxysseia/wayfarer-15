@@ -1021,3 +1021,12 @@ Entries:
   id: 6608
   time: '2026-01-27T15:49:48.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/371
+- author: drraccoony
+  changes:
+    - type: Tweak
+      message: >-
+        Salvage wreck maints lockers more common and loot pool expanded.
+        Hopefully they should be a bit more fun to open.
+  id: 6609
+  time: '2026-01-27T15:55:56.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/259
