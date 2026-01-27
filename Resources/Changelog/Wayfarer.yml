@@ -1014,3 +1014,10 @@ Entries:
   id: 6607
   time: '2026-01-26T23:06:57.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/354
+- author: VVersengt
+  changes:
+    - type: Tweak
+      message: Changed ethanol and nicotine to provide very minor radiation healing
+  id: 6608
+  time: '2026-01-27T15:49:48.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/371
