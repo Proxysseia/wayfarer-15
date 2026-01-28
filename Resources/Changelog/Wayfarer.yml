@@ -1062,3 +1062,10 @@ Entries:
   id: 6613
   time: '2026-01-28T00:53:56.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/370
+- author: Eillyrea
+  changes:
+    - type: Fix
+      message: Cannonballs now destroy tiles
+  id: 6614
+  time: '2026-01-28T21:54:44.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/390
