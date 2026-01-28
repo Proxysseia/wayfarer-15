@@ -1069,3 +1069,14 @@ Entries:
   id: 6614
   time: '2026-01-28T21:54:44.0000000+00:00'
   url: https://github.com/project-wayfarer/wayfarer-14/pull/390
+- author: Eillyrea
+  changes:
+    - type: Tweak
+      message: Remastered the Buckler, smaller, faster, stronger!
+    - type: Fix
+      message: Fixed prices of CGP fleet
+    - type: Fix
+      message: CGP fleet in line with mapping standards
+  id: 6615
+  time: '2026-01-28T21:55:22.0000000+00:00'
+  url: https://github.com/project-wayfarer/wayfarer-14/pull/389
